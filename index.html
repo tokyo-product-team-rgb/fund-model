@@ -402,6 +402,94 @@
       font-size: 0.75rem;
       color: var(--text-muted);
     }
+
+    /* Saved Versions */
+    .versions-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .versions-header input {
+      flex: 1;
+      padding: 0.5rem 0.6rem;
+      font-size: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg);
+    }
+    .versions-header input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #152a45;
+    }
+    .btn-sm {
+      padding: 0.35rem 0.6rem;
+      font-size: 0.7rem;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover {
+      background: var(--bg);
+      color: var(--text);
+    }
+    .btn-danger {
+      color: var(--red);
+    }
+    .btn-danger:hover {
+      background: #fee2e2;
+    }
+    .version-list {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .version-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem;
+      border-radius: 6px;
+      margin-bottom: 0.4rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+    .version-item:hover {
+      border-color: var(--accent);
+    }
+    .version-name {
+      flex: 1;
+      font-weight: 500;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .version-meta {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .version-empty {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
   </style>
 </head>
 <body>
@@ -424,6 +512,17 @@
 
       <!-- INPUTS PANEL -->
       <div>
+        <div class="panel">
+          <h2 class="panel-title">💾 Saved Versions</h2>
+          <div class="versions-header">
+            <input type="text" id="versionName" placeholder="Version name...">
+            <button class="btn btn-primary" onclick="saveVersion()">Save</button>
+          </div>
+          <div class="version-list" id="versionList">
+            <div class="version-empty">No saved versions yet</div>
+          </div>
+        </div>
+
         <div class="panel">
           <h2 class="panel-title">📊 Fund Parameters</h2>
 
@@ -1027,6 +1126,104 @@
 
     // Initial calculation
     calculate();
+
+    // ========== VERSION MANAGEMENT ==========
+    const STORAGE_KEY = 'fundModelVersions';
+
+    function getVersions() {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveVersions(versions) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(versions));
+    }
+
+    function getCurrentState() {
+      const state = {};
+      Object.keys(inputs).forEach(key => {
+        state[key] = inputs[key].value;
+      });
+      return state;
+    }
+
+    function loadState(state) {
+      Object.keys(state).forEach(key => {
+        if (inputs[key]) {
+          inputs[key].value = state[key];
+        }
+      });
+      calculate();
+    }
+
+    function saveVersion() {
+      const nameInput = document.getElementById('versionName');
+      const name = nameInput.value.trim();
+      if (!name) {
+        alert('Please enter a version name');
+        return;
+      }
+
+      const versions = getVersions();
+      const newVersion = {
+        id: Date.now(),
+        name: name,
+        state: getCurrentState(),
+        createdAt: new Date().toISOString()
+      };
+      versions.unshift(newVersion);
+      saveVersions(versions);
+      nameInput.value = '';
+      renderVersions();
+    }
+
+    function loadVersion(id) {
+      const versions = getVersions();
+      const version = versions.find(v => v.id === id);
+      if (version) {
+        loadState(version.state);
+      }
+    }
+
+    function deleteVersion(id) {
+      const versions = getVersions().filter(v => v.id !== id);
+      saveVersions(versions);
+      renderVersions();
+    }
+
+    function formatDate(isoString) {
+      const date = new Date(isoString);
+      return date.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function renderVersions() {
+      const container = document.getElementById('versionList');
+      const versions = getVersions();
+
+      if (versions.length === 0) {
+        container.innerHTML = '<div class="version-empty">No saved versions yet</div>';
+        return;
+      }
+
+      container.innerHTML = versions.map(v => `
+        <div class="version-item">
+          <div class="version-name" onclick="loadVersion(${v.id})" title="Click to load">
+            ${v.name}
+            <div class="version-meta">${formatDate(v.createdAt)}</div>
+          </div>
+          <button class="btn btn-sm btn-ghost" onclick="loadVersion(${v.id})">Load</button>
+          <button class="btn btn-sm btn-ghost btn-danger" onclick="deleteVersion(${v.id})">✕</button>
+        </div>
+      `).join('');
+    }
+
+    // Initialize versions list
+    renderVersions();
   </script>
 
 </body>
