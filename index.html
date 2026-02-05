@@ -19,6 +19,8 @@
       --border: #e8e5e1;
       --accent: #1e3a5f;
       --accent-light: #e0f2fe;
+      --gp-color: #7c3aed;
+      --lp-color: #0891b2;
       --serif: 'Playfair Display', Georgia, serif;
       --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
@@ -56,14 +58,13 @@
       color: var(--text);
       border-bottom-color: var(--text);
     }
-    .nav-bar a:hover:not(.active) { color: var(--text-secondary); }
 
     .masthead {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
     }
     .masthead-inner {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 2rem 1.5rem;
       text-align: center;
@@ -95,17 +96,17 @@
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 2rem 1.5rem 4rem;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: 380px 1fr;
+      grid-template-columns: 340px 1fr;
       gap: 2rem;
     }
-    @media (max-width: 900px) {
+    @media (max-width: 1000px) {
       .grid { grid-template-columns: 1fr; }
     }
 
@@ -115,6 +116,7 @@
       border-radius: var(--radius);
       padding: 1.5rem;
       box-shadow: var(--shadow-sm);
+      margin-bottom: 1.5rem;
     }
 
     .panel-title {
@@ -128,18 +130,17 @@
     }
 
     .input-group {
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
-    .input-group:last-child { margin-bottom: 0; }
 
     .input-label {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--text-muted);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
 
     .input-row {
@@ -148,10 +149,10 @@
       gap: 0.75rem;
     }
 
-    input[type="number"], input[type="text"] {
+    input[type="number"] {
       width: 100%;
-      padding: 0.6rem 0.75rem;
-      font-size: 0.95rem;
+      padding: 0.5rem 0.6rem;
+      font-size: 0.9rem;
       font-family: var(--sans);
       border: 1px solid var(--border);
       border-radius: 6px;
@@ -174,105 +175,160 @@
     }
     input[type="range"]::-webkit-slider-thumb {
       appearance: none;
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       background: var(--accent);
       cursor: pointer;
     }
 
     .slider-value {
-      min-width: 60px;
+      min-width: 50px;
       text-align: right;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
     }
 
     .section-divider {
       border: none;
       border-top: 1px dashed var(--border);
-      margin: 1.5rem 0;
+      margin: 1.25rem 0;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
     }
 
     /* Output Cards */
     .output-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
     }
-    @media (max-width: 600px) {
-      .output-grid { grid-template-columns: 1fr; }
+    @media (max-width: 700px) {
+      .output-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     .output-card {
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1rem;
+      padding: 0.85rem;
       text-align: center;
     }
     .output-card.highlight {
       background: var(--accent-light);
       border-color: var(--accent);
     }
-    .output-card.success {
-      background: #dcfce7;
-      border-color: var(--green);
+    .output-card.gp {
+      background: #f3e8ff;
+      border-color: var(--gp-color);
     }
-    .output-card.warning {
-      background: #fef9c3;
-      border-color: var(--yellow);
-    }
-    .output-card.danger {
-      background: #fee2e2;
-      border-color: var(--red);
+    .output-card.lp {
+      background: #cffafe;
+      border-color: var(--lp-color);
     }
 
     .output-value {
       font-family: var(--serif);
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       font-weight: 800;
       line-height: 1.2;
     }
     .output-value.green { color: var(--green); }
     .output-value.red { color: var(--red); }
-    .output-value.yellow { color: var(--yellow); }
+    .output-value.gp { color: var(--gp-color); }
+    .output-value.lp { color: var(--lp-color); }
 
     .output-label {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       color: var(--text-muted);
-      margin-top: 0.3rem;
+      margin-top: 0.25rem;
+    }
+
+    /* Waterfall */
+    .waterfall {
+      margin-top: 1rem;
+    }
+
+    .waterfall-step {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+    }
+    .waterfall-step.header {
+      background: var(--text);
+      color: #fff;
+      font-weight: 600;
+    }
+    .waterfall-step.lp-row { background: #ecfeff; }
+    .waterfall-step.gp-row { background: #faf5ff; }
+    .waterfall-step.split-row { background: #f0fdf4; }
+
+    .waterfall-label {
+      flex: 1;
+      font-weight: 500;
+    }
+    .waterfall-desc {
+      flex: 2;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+    }
+    .waterfall-lp, .waterfall-gp {
+      width: 100px;
+      text-align: right;
+      font-weight: 700;
+    }
+    .waterfall-lp { color: var(--lp-color); }
+    .waterfall-gp { color: var(--gp-color); }
+
+    .waterfall-total {
+      display: flex;
+      align-items: center;
+      padding: 0.85rem;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      margin-top: 0.75rem;
+      font-weight: 700;
     }
 
     /* Breakdown Table */
     .breakdown-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
     .breakdown-table th {
       text-align: left;
-      padding: 0.6rem 0.5rem;
-      font-size: 0.65rem;
+      padding: 0.5rem 0.4rem;
+      font-size: 0.6rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       color: var(--text-muted);
       border-bottom: 2px solid var(--border);
     }
     .breakdown-table td {
-      padding: 0.65rem 0.5rem;
+      padding: 0.55rem 0.4rem;
       border-bottom: 1px solid var(--border);
     }
     .breakdown-table tr:last-child td { border-bottom: none; }
     .breakdown-table .engine { font-weight: 600; }
     .breakdown-table .num { text-align: right; font-weight: 600; }
     .breakdown-table .pos { color: var(--green); }
-    .breakdown-table .neg { color: var(--red); }
 
     .breakdown-table tfoot td {
       font-weight: 700;
@@ -282,10 +338,10 @@
 
     /* Scenario Status */
     .scenario-status {
-      padding: 1rem;
+      padding: 0.85rem 1rem;
       border-radius: var(--radius);
-      margin-bottom: 1.5rem;
-      font-size: 0.9rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.85rem;
     }
     .scenario-status.success {
       background: #dcfce7;
@@ -302,30 +358,42 @@
       border: 1px solid var(--red);
       color: #991b1b;
     }
-    .scenario-status strong { font-weight: 700; }
 
-    /* Sensitivity */
-    .sensitivity-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-top: 1rem;
+    /* Distribution Bar */
+    .dist-bar-container {
+      margin: 1rem 0;
     }
-    .sensitivity-item {
-      background: var(--bg);
-      border-radius: 6px;
-      padding: 0.75rem;
-    }
-    .sensitivity-label {
+    .dist-bar-label {
+      display: flex;
+      justify-content: space-between;
       font-size: 0.7rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
     }
-    .sensitivity-value {
-      font-size: 1.1rem;
+    .dist-bar {
+      height: 28px;
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      background: var(--border);
+    }
+    .dist-bar-lp {
+      background: var(--lp-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.7rem;
       font-weight: 700;
-      margin-top: 0.2rem;
+    }
+    .dist-bar-gp {
+      background: var(--gp-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
     }
 
     .footer {
@@ -345,8 +413,8 @@
   <header class="masthead">
     <div class="masthead-inner">
       <div class="overline">Portfolio Construction Tool</div>
-      <h1>Fund Model Simulator</h1>
-      <p class="subtitle">Adjust assumptions to stress-test portfolio economics</p>
+      <h1>VC Fund Model Simulator</h1>
+      <p class="subtitle">Stress-test portfolio economics with full waterfall analysis</p>
       <div class="divider-bar"></div>
     </div>
   </header>
@@ -355,128 +423,163 @@
     <div class="grid">
 
       <!-- INPUTS PANEL -->
-      <div class="panel">
-        <h2 class="panel-title">📊 Assumptions</h2>
+      <div>
+        <div class="panel">
+          <h2 class="panel-title">📊 Fund Parameters</h2>
 
-        <!-- Fund Basics -->
-        <div class="input-group">
-          <label class="input-label">Fund Size ($M)</label>
-          <input type="number" id="fundSize" value="1000" min="100" max="5000" step="50">
-        </div>
+          <div class="section-label">Fund Basics</div>
 
-        <div class="input-group">
-          <label class="input-label">Management Fee (%)</label>
-          <div class="input-row">
-            <input type="range" id="mgmtFee" value="2" min="1" max="3" step="0.25">
-            <span class="slider-value" id="mgmtFeeVal">2%</span>
+          <div class="input-group">
+            <label class="input-label">Fund Size ($M)</label>
+            <input type="number" id="fundSize" value="1000" min="100" max="5000" step="50">
           </div>
-        </div>
 
-        <div class="input-group">
-          <label class="input-label">Fund Life (Years)</label>
-          <input type="number" id="fundLife" value="10" min="5" max="15">
-        </div>
-
-        <div class="input-group">
-          <label class="input-label">Target Net MOIC</label>
-          <input type="number" id="targetMoic" value="5" min="2" max="10" step="0.5">
-        </div>
-
-        <hr class="section-divider">
-
-        <!-- Allocation -->
-        <div class="input-group">
-          <label class="input-label">Discovery Allocation (%)</label>
-          <div class="input-row">
-            <input type="range" id="discoveryPct" value="15" min="5" max="30" step="1">
-            <span class="slider-value" id="discoveryPctVal">15%</span>
+          <div class="input-group">
+            <label class="input-label">Management Fee (%)</label>
+            <div class="input-row">
+              <input type="range" id="mgmtFee" value="2" min="1" max="3" step="0.25">
+              <span class="slider-value" id="mgmtFeeVal">2%</span>
+            </div>
           </div>
-        </div>
 
-        <div class="input-group">
-          <label class="input-label">Core Allocation (%)</label>
-          <div class="input-row">
-            <input type="range" id="corePct" value="73" min="50" max="85" step="1">
-            <span class="slider-value" id="corePctVal">73%</span>
+          <div class="input-group">
+            <label class="input-label">Fund Life (Years)</label>
+            <input type="number" id="fundLife" value="10" min="5" max="15">
           </div>
-        </div>
 
-        <div class="input-group">
-          <label class="input-label">Breakout Allocation (%)</label>
-          <div class="input-row">
-            <input type="range" id="breakoutPct" value="12" min="5" max="25" step="1">
-            <span class="slider-value" id="breakoutPctVal">12%</span>
+          <div class="input-group">
+            <label class="input-label">Target Net MOIC</label>
+            <input type="number" id="targetMoic" value="5" min="2" max="10" step="0.5">
           </div>
-        </div>
 
-        <hr class="section-divider">
+          <hr class="section-divider">
+          <div class="section-label">Waterfall Terms</div>
 
-        <!-- Position Counts -->
-        <div class="input-group">
-          <label class="input-label">Discovery Positions</label>
-          <input type="number" id="discoveryCount" value="146" min="20" max="300">
-        </div>
-
-        <div class="input-group">
-          <label class="input-label">Core Positions</label>
-          <input type="number" id="coreCount" value="10" min="5" max="30">
-        </div>
-
-        <div class="input-group">
-          <label class="input-label">Breakout Positions</label>
-          <input type="number" id="breakoutCount" value="3" min="1" max="10">
-        </div>
-
-        <hr class="section-divider">
-
-        <!-- Return Assumptions -->
-        <div class="input-group">
-          <label class="input-label">Discovery Avg Multiple (survivors)</label>
-          <input type="number" id="discoveryMult" value="8" min="1" max="50" step="0.5">
-        </div>
-
-        <div class="input-group">
-          <label class="input-label">Core Avg Multiple</label>
-          <input type="number" id="coreMult" value="12" min="2" max="30" step="0.5">
-        </div>
-
-        <div class="input-group">
-          <label class="input-label">Breakout Avg Multiple</label>
-          <input type="number" id="breakoutMult" value="25" min="5" max="100" step="1">
-        </div>
-
-        <hr class="section-divider">
-
-        <!-- Loss Rates -->
-        <div class="input-group">
-          <label class="input-label">Discovery Loss Rate (%)</label>
-          <div class="input-row">
-            <input type="range" id="discoveryLoss" value="60" min="30" max="80" step="5">
-            <span class="slider-value" id="discoveryLossVal">60%</span>
+          <div class="input-group">
+            <label class="input-label">Carried Interest (%)</label>
+            <div class="input-row">
+              <input type="range" id="carryPct" value="20" min="10" max="30" step="1">
+              <span class="slider-value" id="carryPctVal">20%</span>
+            </div>
           </div>
-        </div>
 
-        <div class="input-group">
-          <label class="input-label">Core Loss Rate (%)</label>
-          <div class="input-row">
-            <input type="range" id="coreLoss" value="30" min="10" max="50" step="5">
-            <span class="slider-value" id="coreLossVal">30%</span>
+          <div class="input-group">
+            <label class="input-label">Preferred Return / Hurdle (%)</label>
+            <div class="input-row">
+              <input type="range" id="hurdleRate" value="8" min="0" max="12" step="1">
+              <span class="slider-value" id="hurdleRateVal">8%</span>
+            </div>
           </div>
-        </div>
 
-        <div class="input-group">
-          <label class="input-label">Breakout Loss Rate (%)</label>
-          <div class="input-row">
-            <input type="range" id="breakoutLoss" value="10" min="0" max="30" step="5">
-            <span class="slider-value" id="breakoutLossVal">10%</span>
+          <div class="input-group">
+            <label class="input-label">GP Catch-up (%)</label>
+            <div class="input-row">
+              <input type="range" id="catchupPct" value="100" min="0" max="100" step="10">
+              <span class="slider-value" id="catchupPctVal">100%</span>
+            </div>
           </div>
+
+          <hr class="section-divider">
+          <div class="section-label">Capital Allocation</div>
+
+          <div class="input-group">
+            <label class="input-label">Discovery (%)</label>
+            <div class="input-row">
+              <input type="range" id="discoveryPct" value="15" min="5" max="30" step="1">
+              <span class="slider-value" id="discoveryPctVal">15%</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Core (%)</label>
+            <div class="input-row">
+              <input type="range" id="corePct" value="73" min="50" max="85" step="1">
+              <span class="slider-value" id="corePctVal">73%</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Breakout (%)</label>
+            <div class="input-row">
+              <input type="range" id="breakoutPct" value="12" min="5" max="25" step="1">
+              <span class="slider-value" id="breakoutPctVal">12%</span>
+            </div>
+          </div>
+
         </div>
 
+        <div class="panel">
+          <h2 class="panel-title">🎯 Position Assumptions</h2>
+
+          <div class="section-label">Position Counts</div>
+
+          <div class="input-group">
+            <label class="input-label">Discovery Positions</label>
+            <input type="number" id="discoveryCount" value="146" min="20" max="300">
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Core Positions</label>
+            <input type="number" id="coreCount" value="10" min="5" max="30">
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Breakout Positions</label>
+            <input type="number" id="breakoutCount" value="3" min="1" max="10">
+          </div>
+
+          <hr class="section-divider">
+          <div class="section-label">Return Multiples (Survivors)</div>
+
+          <div class="input-group">
+            <label class="input-label">Discovery Avg Multiple</label>
+            <input type="number" id="discoveryMult" value="8" min="1" max="50" step="0.5">
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Core Avg Multiple</label>
+            <input type="number" id="coreMult" value="12" min="2" max="30" step="0.5">
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Breakout Avg Multiple</label>
+            <input type="number" id="breakoutMult" value="25" min="5" max="100" step="1">
+          </div>
+
+          <hr class="section-divider">
+          <div class="section-label">Loss Rates</div>
+
+          <div class="input-group">
+            <label class="input-label">Discovery Loss Rate</label>
+            <div class="input-row">
+              <input type="range" id="discoveryLoss" value="60" min="30" max="80" step="5">
+              <span class="slider-value" id="discoveryLossVal">60%</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Core Loss Rate</label>
+            <div class="input-row">
+              <input type="range" id="coreLoss" value="30" min="10" max="50" step="5">
+              <span class="slider-value" id="coreLossVal">30%</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Breakout Loss Rate</label>
+            <div class="input-row">
+              <input type="range" id="breakoutLoss" value="10" min="0" max="30" step="5">
+              <span class="slider-value" id="breakoutLossVal">10%</span>
+            </div>
+          </div>
+
+        </div>
       </div>
 
       <!-- OUTPUTS PANEL -->
       <div>
-        <div class="panel" style="margin-bottom: 1.5rem;">
+
+        <div class="panel">
           <h2 class="panel-title">💰 Fund Economics</h2>
 
           <div id="scenarioStatus" class="scenario-status success">
@@ -485,12 +588,16 @@
 
           <div class="output-grid">
             <div class="output-card highlight">
-              <div class="output-value" id="netMoic">5.2x</div>
+              <div class="output-value green" id="netMoic">5.2x</div>
               <div class="output-label">Net MOIC</div>
             </div>
             <div class="output-card">
               <div class="output-value" id="grossMoic">7.4x</div>
               <div class="output-label">Gross MOIC</div>
+            </div>
+            <div class="output-card highlight">
+              <div class="output-value green" id="netIrr">28.5%</div>
+              <div class="output-label">Net IRR</div>
             </div>
             <div class="output-card">
               <div class="output-value" id="investable">$830M</div>
@@ -503,18 +610,82 @@
               <div class="output-value" id="grossProceeds">$6.1B</div>
               <div class="output-label">Gross Proceeds</div>
             </div>
-            <div class="output-card">
-              <div class="output-value" id="netDistributions">$5.2B</div>
-              <div class="output-label">Net to LPs</div>
+            <div class="output-card lp">
+              <div class="output-value lp" id="lpTotal">$4.2B</div>
+              <div class="output-label">LP Total</div>
+            </div>
+            <div class="output-card gp">
+              <div class="output-value gp" id="gpTotal">$1.0B</div>
+              <div class="output-label">GP Total</div>
             </div>
             <div class="output-card">
-              <div class="output-value" id="carry">$1.0B</div>
-              <div class="output-label">GP Carry (20%)</div>
+              <div class="output-value" id="lpMoic">4.2x</div>
+              <div class="output-label">LP MOIC</div>
+            </div>
+          </div>
+
+          <!-- Distribution Bar -->
+          <div class="dist-bar-container">
+            <div class="dist-bar-label">
+              <span style="color: var(--lp-color);">LP: <span id="lpPct">81%</span></span>
+              <span style="color: var(--gp-color);">GP: <span id="gpPct">19%</span></span>
+            </div>
+            <div class="dist-bar">
+              <div class="dist-bar-lp" id="lpBar" style="width: 81%;">$4.2B</div>
+              <div class="dist-bar-gp" id="gpBar" style="width: 19%;">$1.0B</div>
             </div>
           </div>
         </div>
 
-        <div class="panel" style="margin-bottom: 1.5rem;">
+        <div class="panel">
+          <h2 class="panel-title">🌊 Fund Waterfall</h2>
+
+          <div class="waterfall">
+            <div class="waterfall-step header">
+              <div class="waterfall-label">Step</div>
+              <div class="waterfall-desc">Description</div>
+              <div class="waterfall-lp" style="color:#fff;">LP</div>
+              <div class="waterfall-gp" style="color:#fff;">GP</div>
+            </div>
+
+            <div class="waterfall-step lp-row">
+              <div class="waterfall-label">1. Return of Capital</div>
+              <div class="waterfall-desc">LPs get contributed capital back first</div>
+              <div class="waterfall-lp" id="wfReturnCapitalLP">$1,000M</div>
+              <div class="waterfall-gp">$0</div>
+            </div>
+
+            <div class="waterfall-step lp-row">
+              <div class="waterfall-label">2. Preferred Return</div>
+              <div class="waterfall-desc" id="wfPrefDesc">8% annual hurdle on committed capital</div>
+              <div class="waterfall-lp" id="wfPrefReturnLP">$800M</div>
+              <div class="waterfall-gp">$0</div>
+            </div>
+
+            <div class="waterfall-step gp-row">
+              <div class="waterfall-label">3. GP Catch-up</div>
+              <div class="waterfall-desc" id="wfCatchupDesc">GP catches up to 20% of profits so far</div>
+              <div class="waterfall-lp">$0</div>
+              <div class="waterfall-gp" id="wfCatchupGP">$450M</div>
+            </div>
+
+            <div class="waterfall-step split-row">
+              <div class="waterfall-label">4. Carried Interest Split</div>
+              <div class="waterfall-desc" id="wfSplitDesc">Remaining profits split 80/20</div>
+              <div class="waterfall-lp" id="wfSplitLP">$2,400M</div>
+              <div class="waterfall-gp" id="wfSplitGP">$600M</div>
+            </div>
+
+            <div class="waterfall-total">
+              <div class="waterfall-label">Total Distributions</div>
+              <div class="waterfall-desc"></div>
+              <div class="waterfall-lp" id="wfTotalLP">$4,200M</div>
+              <div class="waterfall-gp" id="wfTotalGP">$1,050M</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
           <h2 class="panel-title">📈 Engine Breakdown</h2>
 
           <table class="breakdown-table">
@@ -565,39 +736,10 @@
               </tr>
             </tfoot>
           </table>
-        </div>
 
-        <div class="panel">
-          <h2 class="panel-title">🎯 Sensitivity Analysis</h2>
-          
-          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
-            What if key assumptions change?
-          </p>
-
-          <div class="sensitivity-grid">
-            <div class="sensitivity-item">
-              <div class="sensitivity-label">If Core mult drops to 8x</div>
-              <div class="sensitivity-value" id="sensCore8x">3.8x net</div>
-            </div>
-            <div class="sensitivity-item">
-              <div class="sensitivity-label">If Core loss rate = 50%</div>
-              <div class="sensitivity-value" id="sensCoreLoss50">3.2x net</div>
-            </div>
-            <div class="sensitivity-item">
-              <div class="sensitivity-label">If Breakout hits 50x</div>
-              <div class="sensitivity-value" id="sensBreakout50x">6.1x net</div>
-            </div>
-            <div class="sensitivity-item">
-              <div class="sensitivity-label">Required Core mult for 5x</div>
-              <div class="sensitivity-value" id="sensRequiredMult">11.5x</div>
-            </div>
+          <div style="margin-top: 1rem; padding: 0.75rem; background: var(--bg); border-radius: 6px; font-size: 0.8rem; color: var(--text-secondary);">
+            <strong>Key Insight:</strong> <span id="keyInsight">Core positions drive 82% of returns.</span>
           </div>
-
-          <hr class="section-divider">
-
-          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
-            <strong>Key Insight:</strong> <span id="keyInsight">Core positions drive 82% of returns. Focus LP pitch on your ability to pick and win these 10 deals.</span>
-          </p>
         </div>
 
       </div>
@@ -605,16 +747,18 @@
   </main>
 
   <footer class="footer">
-    <p>Fund Portfolio Model · Interactive Assumptions Tool</p>
+    <p>VC Fund Model Simulator · Full Waterfall Analysis</p>
   </footer>
 
   <script>
-    // Get all inputs
     const inputs = {
       fundSize: document.getElementById('fundSize'),
       mgmtFee: document.getElementById('mgmtFee'),
       fundLife: document.getElementById('fundLife'),
       targetMoic: document.getElementById('targetMoic'),
+      carryPct: document.getElementById('carryPct'),
+      hurdleRate: document.getElementById('hurdleRate'),
+      catchupPct: document.getElementById('catchupPct'),
       discoveryPct: document.getElementById('discoveryPct'),
       corePct: document.getElementById('corePct'),
       breakoutPct: document.getElementById('breakoutPct'),
@@ -629,9 +773,11 @@
       breakoutLoss: document.getElementById('breakoutLoss'),
     };
 
-    // Slider value displays
     const sliderDisplays = {
       mgmtFee: document.getElementById('mgmtFeeVal'),
+      carryPct: document.getElementById('carryPctVal'),
+      hurdleRate: document.getElementById('hurdleRateVal'),
+      catchupPct: document.getElementById('catchupPctVal'),
       discoveryPct: document.getElementById('discoveryPctVal'),
       corePct: document.getElementById('corePctVal'),
       breakoutPct: document.getElementById('breakoutPctVal'),
@@ -647,12 +793,24 @@
       return '$' + val.toFixed(0);
     }
 
+    function calculateIRR(investable, grossProceeds, years) {
+      // Simplified IRR: solve for r where investable * (1+r)^years = grossProceeds
+      // r = (grossProceeds/investable)^(1/years) - 1
+      if (grossProceeds <= 0 || investable <= 0) return 0;
+      const moic = grossProceeds / investable;
+      const irr = Math.pow(moic, 1/years) - 1;
+      return irr;
+    }
+
     function calculate() {
       // Get values
       const fundSize = parseFloat(inputs.fundSize.value) * 1e6;
       const mgmtFee = parseFloat(inputs.mgmtFee.value) / 100;
       const fundLife = parseFloat(inputs.fundLife.value);
       const targetMoic = parseFloat(inputs.targetMoic.value);
+      const carryPct = parseFloat(inputs.carryPct.value) / 100;
+      const hurdleRate = parseFloat(inputs.hurdleRate.value) / 100;
+      const catchupPct = parseFloat(inputs.catchupPct.value) / 100;
 
       const discoveryPct = parseFloat(inputs.discoveryPct.value) / 100;
       const corePct = parseFloat(inputs.corePct.value) / 100;
@@ -669,6 +827,18 @@
       const discoveryLoss = parseFloat(inputs.discoveryLoss.value) / 100;
       const coreLoss = parseFloat(inputs.coreLoss.value) / 100;
       const breakoutLoss = parseFloat(inputs.breakoutLoss.value) / 100;
+
+      // Update slider displays
+      sliderDisplays.mgmtFee.textContent = (mgmtFee * 100).toFixed(2) + '%';
+      sliderDisplays.carryPct.textContent = (carryPct * 100).toFixed(0) + '%';
+      sliderDisplays.hurdleRate.textContent = (hurdleRate * 100).toFixed(0) + '%';
+      sliderDisplays.catchupPct.textContent = (catchupPct * 100).toFixed(0) + '%';
+      sliderDisplays.discoveryPct.textContent = (discoveryPct * 100).toFixed(0) + '%';
+      sliderDisplays.corePct.textContent = (corePct * 100).toFixed(0) + '%';
+      sliderDisplays.breakoutPct.textContent = (breakoutPct * 100).toFixed(0) + '%';
+      sliderDisplays.discoveryLoss.textContent = (discoveryLoss * 100).toFixed(0) + '%';
+      sliderDisplays.coreLoss.textContent = (coreLoss * 100).toFixed(0) + '%';
+      sliderDisplays.breakoutLoss.textContent = (breakoutLoss * 100).toFixed(0) + '%';
 
       // Calculate fees and investable
       const totalFees = fundSize * mgmtFee * fundLife;
@@ -689,7 +859,7 @@
       const coreSurvivors = coreCount * (1 - coreLoss);
       const breakoutSurvivors = breakoutCount * (1 - breakoutLoss);
 
-      // Returns (survivors * check * multiple)
+      // Returns
       const discoveryReturn = discoverySurvivors * discoveryCheck * discoveryMult;
       const coreReturn = coreSurvivors * coreCheck * coreMult;
       const breakoutReturn = breakoutSurvivors * breakoutCheck * breakoutMult;
@@ -697,33 +867,87 @@
       const grossProceeds = discoveryReturn + coreReturn + breakoutReturn;
       const grossMoic = grossProceeds / investable;
 
-      // Carry calculation (20% of profits above 1x)
-      const profits = grossProceeds - investable;
-      const carry = profits > 0 ? profits * 0.20 : 0;
-      const netToLPs = grossProceeds - carry;
-      const netMoic = netToLPs / fundSize;
+      // ========== WATERFALL CALCULATION ==========
+      let remaining = grossProceeds;
+      let lpTotal = 0;
+      let gpTotal = 0;
 
-      // Update slider displays
-      sliderDisplays.mgmtFee.textContent = (mgmtFee * 100).toFixed(2) + '%';
-      sliderDisplays.discoveryPct.textContent = (discoveryPct * 100).toFixed(0) + '%';
-      sliderDisplays.corePct.textContent = (corePct * 100).toFixed(0) + '%';
-      sliderDisplays.breakoutPct.textContent = (breakoutPct * 100).toFixed(0) + '%';
-      sliderDisplays.discoveryLoss.textContent = (discoveryLoss * 100).toFixed(0) + '%';
-      sliderDisplays.coreLoss.textContent = (coreLoss * 100).toFixed(0) + '%';
-      sliderDisplays.breakoutLoss.textContent = (breakoutLoss * 100).toFixed(0) + '%';
+      // Step 1: Return of Capital (to LPs)
+      const returnOfCapital = Math.min(remaining, fundSize);
+      lpTotal += returnOfCapital;
+      remaining -= returnOfCapital;
 
-      // Update outputs
+      // Step 2: Preferred Return (to LPs)
+      // Compound preferred return: fundSize * ((1 + hurdle)^years - 1)
+      const prefReturn = fundSize * (Math.pow(1 + hurdleRate, fundLife) - 1);
+      const actualPrefReturn = Math.min(remaining, prefReturn);
+      lpTotal += actualPrefReturn;
+      remaining -= actualPrefReturn;
+
+      // Step 3: GP Catch-up
+      // GP gets catchupPct of distributions until GP has carryPct of total profits
+      // Total profits so far = returnOfCapital + prefReturn - fundSize + remaining (before split)
+      // Actually: GP needs to catch up so that GP has carryPct of (prefReturn + catchup + split profits)
+      // Simplified: catchup = (prefReturn * carryPct / (1 - carryPct)) * catchupPct
+      let gpCatchup = 0;
+      if (catchupPct > 0 && remaining > 0) {
+        // GP catch-up: GP gets 100% until they have carryPct of profits distributed so far
+        // catchup amount = (prefReturn * carryPct) / (1 - carryPct)
+        const fullCatchup = (actualPrefReturn * carryPct) / (1 - carryPct);
+        gpCatchup = Math.min(remaining, fullCatchup * catchupPct);
+        gpTotal += gpCatchup;
+        remaining -= gpCatchup;
+      }
+
+      // Step 4: Carried Interest Split (remaining profits)
+      const lpSplit = remaining * (1 - carryPct);
+      const gpSplit = remaining * carryPct;
+      lpTotal += lpSplit;
+      gpTotal += gpSplit;
+
+      // Final metrics
+      const lpMoic = lpTotal / fundSize;
+      const netMoic = lpMoic; // Net MOIC = LP MOIC since LPs put in fundSize
+      const netIrr = calculateIRR(fundSize, lpTotal, fundLife);
+
+      // ========== UPDATE UI ==========
+      
+      // Main outputs
       document.getElementById('netMoic').textContent = netMoic.toFixed(1) + 'x';
       document.getElementById('grossMoic').textContent = grossMoic.toFixed(1) + 'x';
+      document.getElementById('netIrr').textContent = (netIrr * 100).toFixed(1) + '%';
       document.getElementById('investable').textContent = formatMoney(investable);
       document.getElementById('grossProceeds').textContent = formatMoney(grossProceeds);
-      document.getElementById('netDistributions').textContent = formatMoney(netToLPs);
-      document.getElementById('carry').textContent = formatMoney(carry);
+      document.getElementById('lpTotal').textContent = formatMoney(lpTotal);
+      document.getElementById('gpTotal').textContent = formatMoney(gpTotal);
+      document.getElementById('lpMoic').textContent = lpMoic.toFixed(1) + 'x';
 
-      // Update breakdown table
+      // Distribution bar
+      const lpPctVal = (lpTotal / grossProceeds * 100).toFixed(0);
+      const gpPctVal = (gpTotal / grossProceeds * 100).toFixed(0);
+      document.getElementById('lpPct').textContent = lpPctVal + '%';
+      document.getElementById('gpPct').textContent = gpPctVal + '%';
+      document.getElementById('lpBar').style.width = lpPctVal + '%';
+      document.getElementById('lpBar').textContent = formatMoney(lpTotal);
+      document.getElementById('gpBar').style.width = gpPctVal + '%';
+      document.getElementById('gpBar').textContent = formatMoney(gpTotal);
+
+      // Waterfall steps
+      document.getElementById('wfReturnCapitalLP').textContent = formatMoney(returnOfCapital);
+      document.getElementById('wfPrefDesc').textContent = `${(hurdleRate*100).toFixed(0)}% annual hurdle compounded over ${fundLife} years`;
+      document.getElementById('wfPrefReturnLP').textContent = formatMoney(actualPrefReturn);
+      document.getElementById('wfCatchupDesc').textContent = `GP catches up to ${(carryPct*100).toFixed(0)}% of profits (${(catchupPct*100).toFixed(0)}% catch-up)`;
+      document.getElementById('wfCatchupGP').textContent = formatMoney(gpCatchup);
+      document.getElementById('wfSplitDesc').textContent = `Remaining profits split ${((1-carryPct)*100).toFixed(0)}/${(carryPct*100).toFixed(0)}`;
+      document.getElementById('wfSplitLP').textContent = formatMoney(lpSplit);
+      document.getElementById('wfSplitGP').textContent = formatMoney(gpSplit);
+      document.getElementById('wfTotalLP').textContent = formatMoney(lpTotal);
+      document.getElementById('wfTotalGP').textContent = formatMoney(gpTotal);
+
+      // Breakdown table
       document.getElementById('discoveryCapital').textContent = formatMoney(discoveryCapital);
       document.getElementById('discoveryPositions').textContent = discoveryCount;
-      document.getElementById('discoveryCheck').textContent = formatMoney(discoveryCheck, 0);
+      document.getElementById('discoveryCheck').textContent = formatMoney(discoveryCheck);
       document.getElementById('discoverySurvivors').textContent = Math.round(discoverySurvivors);
       document.getElementById('discoveryReturn').textContent = formatMoney(discoveryReturn);
 
@@ -747,59 +971,34 @@
       // Scenario status
       const statusEl = document.getElementById('scenarioStatus');
       const netMoicEl = document.getElementById('netMoic');
+      const netIrrEl = document.getElementById('netIrr');
       
       if (netMoic >= targetMoic) {
         statusEl.className = 'scenario-status success';
-        statusEl.innerHTML = `<strong>✓ Target Achievable</strong> — Model produces ${netMoic.toFixed(1)}x net MOIC (target: ${targetMoic}x)`;
+        statusEl.innerHTML = `<strong>✓ Target Achievable</strong> — ${netMoic.toFixed(1)}x net MOIC / ${(netIrr*100).toFixed(1)}% net IRR (target: ${targetMoic}x)`;
         netMoicEl.className = 'output-value green';
+        netIrrEl.className = 'output-value green';
       } else if (netMoic >= targetMoic * 0.8) {
         statusEl.className = 'scenario-status warning';
-        statusEl.innerHTML = `<strong>⚠ Close but Below Target</strong> — Model produces ${netMoic.toFixed(1)}x net MOIC (target: ${targetMoic}x)`;
-        netMoicEl.className = 'output-value yellow';
+        statusEl.innerHTML = `<strong>⚠ Close to Target</strong> — ${netMoic.toFixed(1)}x net MOIC / ${(netIrr*100).toFixed(1)}% net IRR (target: ${targetMoic}x)`;
+        netMoicEl.className = 'output-value';
+        netMoicEl.style.color = 'var(--yellow)';
+        netIrrEl.className = 'output-value';
+        netIrrEl.style.color = 'var(--yellow)';
       } else {
         statusEl.className = 'scenario-status danger';
-        statusEl.innerHTML = `<strong>✗ Target Not Achievable</strong> — Model produces ${netMoic.toFixed(1)}x net MOIC (target: ${targetMoic}x)`;
+        statusEl.innerHTML = `<strong>✗ Below Target</strong> — ${netMoic.toFixed(1)}x net MOIC / ${(netIrr*100).toFixed(1)}% net IRR (target: ${targetMoic}x)`;
         netMoicEl.className = 'output-value red';
+        netIrrEl.className = 'output-value red';
       }
-
-      // Sensitivity analysis
-      // If Core mult drops to 8x
-      const coreReturn8x = coreSurvivors * coreCheck * 8;
-      const gross8x = discoveryReturn + coreReturn8x + breakoutReturn;
-      const net8x = (gross8x - (gross8x - investable) * 0.20) / fundSize;
-      document.getElementById('sensCore8x').textContent = net8x.toFixed(1) + 'x net';
-      document.getElementById('sensCore8x').style.color = net8x >= targetMoic ? 'var(--green)' : 'var(--red)';
-
-      // If Core loss rate = 50%
-      const coreSurvivors50 = coreCount * 0.5;
-      const coreReturn50Loss = coreSurvivors50 * coreCheck * coreMult;
-      const gross50Loss = discoveryReturn + coreReturn50Loss + breakoutReturn;
-      const net50Loss = (gross50Loss - (gross50Loss - investable) * 0.20) / fundSize;
-      document.getElementById('sensCoreLoss50').textContent = net50Loss.toFixed(1) + 'x net';
-      document.getElementById('sensCoreLoss50').style.color = net50Loss >= targetMoic ? 'var(--green)' : 'var(--red)';
-
-      // If Breakout hits 50x
-      const breakoutReturn50x = breakoutSurvivors * breakoutCheck * 50;
-      const gross50x = discoveryReturn + coreReturn + breakoutReturn50x;
-      const net50x = (gross50x - (gross50x - investable) * 0.20) / fundSize;
-      document.getElementById('sensBreakout50x').textContent = net50x.toFixed(1) + 'x net';
-      document.getElementById('sensBreakout50x').style.color = 'var(--green)';
-
-      // Required Core mult for target
-      const targetGross = (targetMoic * fundSize + investable * 0.20) / 0.80;
-      const neededFromCore = targetGross - discoveryReturn - breakoutReturn;
-      const requiredCoreMult = neededFromCore / (coreSurvivors * coreCheck);
-      document.getElementById('sensRequiredMult').textContent = requiredCoreMult.toFixed(1) + 'x';
-      document.getElementById('sensRequiredMult').style.color = requiredCoreMult <= coreMult ? 'var(--green)' : 'var(--red)';
 
       // Key insight
       const coreContribution = coreReturn / grossProceeds * 100;
       document.getElementById('keyInsight').textContent = 
-        `Core positions drive ${coreContribution.toFixed(0)}% of gross returns. ` +
-        `You need ${requiredCoreMult.toFixed(1)}x avg multiple from your ${coreCount} Core picks to hit ${targetMoic}x net.`;
+        `Core positions drive ${coreContribution.toFixed(0)}% of gross returns. GP takes home ${formatMoney(gpTotal)} (${gpPctVal}% of proceeds).`;
     }
 
-    // Add event listeners to all inputs
+    // Add event listeners
     Object.values(inputs).forEach(input => {
       input.addEventListener('input', calculate);
     });
