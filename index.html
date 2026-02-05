@@ -439,6 +439,16 @@
             <div class="input-row">
               <input type="range" id="mgmtFee" value="2" min="1" max="3" step="0.25">
               <span class="slider-value" id="mgmtFeeVal">2%</span>
+              <span class="slider-value" id="mgmtFeeDollar" style="color: var(--text-secondary); min-width: 70px;">$200M</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Expense Ratio (%)</label>
+            <div class="input-row">
+              <input type="range" id="expenseRatio" value="0.5" min="0" max="2" step="0.1">
+              <span class="slider-value" id="expenseRatioVal">0.5%</span>
+              <span class="slider-value" id="expenseRatioDollar" style="color: var(--text-secondary); min-width: 70px;">$50M</span>
             </div>
           </div>
 
@@ -754,6 +764,7 @@
     const inputs = {
       fundSize: document.getElementById('fundSize'),
       mgmtFee: document.getElementById('mgmtFee'),
+      expenseRatio: document.getElementById('expenseRatio'),
       fundLife: document.getElementById('fundLife'),
       targetMoic: document.getElementById('targetMoic'),
       carryPct: document.getElementById('carryPct'),
@@ -775,6 +786,9 @@
 
     const sliderDisplays = {
       mgmtFee: document.getElementById('mgmtFeeVal'),
+      mgmtFeeDollar: document.getElementById('mgmtFeeDollar'),
+      expenseRatio: document.getElementById('expenseRatioVal'),
+      expenseRatioDollar: document.getElementById('expenseRatioDollar'),
       carryPct: document.getElementById('carryPctVal'),
       hurdleRate: document.getElementById('hurdleRateVal'),
       catchupPct: document.getElementById('catchupPctVal'),
@@ -806,6 +820,7 @@
       // Get values
       const fundSize = parseFloat(inputs.fundSize.value) * 1e6;
       const mgmtFee = parseFloat(inputs.mgmtFee.value) / 100;
+      const expenseRatio = parseFloat(inputs.expenseRatio.value) / 100;
       const fundLife = parseFloat(inputs.fundLife.value);
       const targetMoic = parseFloat(inputs.targetMoic.value);
       const carryPct = parseFloat(inputs.carryPct.value) / 100;
@@ -828,8 +843,15 @@
       const coreLoss = parseFloat(inputs.coreLoss.value) / 100;
       const breakoutLoss = parseFloat(inputs.breakoutLoss.value) / 100;
 
+      // Calculate fee dollar amounts
+      const mgmtFeeDollars = fundSize * mgmtFee * fundLife;
+      const expenseRatioDollars = fundSize * expenseRatio * fundLife;
+      
       // Update slider displays
       sliderDisplays.mgmtFee.textContent = (mgmtFee * 100).toFixed(2) + '%';
+      sliderDisplays.mgmtFeeDollar.textContent = formatMoney(mgmtFeeDollars);
+      sliderDisplays.expenseRatio.textContent = (expenseRatio * 100).toFixed(1) + '%';
+      sliderDisplays.expenseRatioDollar.textContent = formatMoney(expenseRatioDollars);
       sliderDisplays.carryPct.textContent = (carryPct * 100).toFixed(0) + '%';
       sliderDisplays.hurdleRate.textContent = (hurdleRate * 100).toFixed(0) + '%';
       sliderDisplays.catchupPct.textContent = (catchupPct * 100).toFixed(0) + '%';
@@ -841,7 +863,7 @@
       sliderDisplays.breakoutLoss.textContent = (breakoutLoss * 100).toFixed(0) + '%';
 
       // Calculate fees and investable
-      const totalFees = fundSize * mgmtFee * fundLife;
+      const totalFees = mgmtFeeDollars + expenseRatioDollars;
       const investable = fundSize - totalFees;
 
       // Allocation
