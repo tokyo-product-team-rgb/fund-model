@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VC Fund Research — Verified Data</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Copernicus Trial';
+      src: url('fonts/CopernicusTrial-Book.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Copernicus Trial';
+      src: url('fonts/CopernicusTrial-Medium.ttf') format('truetype');
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --text-primary: #111111;
+      --text-secondary: #44403C;
+      --text-tertiary: #78716C;
+      --text-muted: #a8a29e;
+      --bg-primary: #F9F9F9;
+      --bg-secondary: #FDFDFD;
+      --bg-tertiary: #F7F6F4;
+      --bg-hover: #F5F4F3;
+      --bg-hover-darker: #ECEAE7;
+      --bg-white: #FFFFFF;
+      --line-subtle: #E8E5E1;
+      --line-default: #D5D2CD;
+      --green: #2A8F87;
+      --red: #B94A48;
+      --serif: 'Copernicus Trial', Georgia, serif;
+      --sans: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      --shadow-sm: 0 4px 8px rgba(0,0,0,0.04), 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-md: 0 8px 16px rgba(0,0,0,0.06), 0 4px 8px rgba(0,0,0,0.04);
+      --radius: 24px;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      background: var(--bg-secondary);
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    .nav-bar a {
+      text-decoration: none;
+      color: var(--text-tertiary);
+      padding: 0.7rem 1.5rem;
+      margin: 4px 0;
+      border-radius: 999px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-bar a:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+    .nav-bar a.active {
+      background: var(--bg-hover-darker);
+      color: var(--text-primary);
+    }
+
+    .masthead {
+      background: transparent;
+      padding: 0;
+    }
+
+    .masthead-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .masthead .overline {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .masthead h1 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead .edition-date {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .divider-bar {
+      width: 60px;
+      height: 3px;
+      background: var(--text-primary);
+      margin: 1rem auto 0;
+      border-radius: 2px;
+    }
+
+    .section-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem 1.5rem;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-pill {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 0.4em 1em;
+      border-radius: 999px;
+      border: 1px solid var(--line-subtle);
+      color: var(--text-secondary);
+      background: var(--bg-white);
+      transition: all 0.2s;
+    }
+
+    .section-pill:hover {
+      background: var(--text-primary);
+      color: white;
+      border-color: var(--text-primary);
+    }
+
+    .section {
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      padding: 0 1.5rem;
+    }
+
+    .section-header {
+      border-bottom: 2px solid var(--text-primary);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-title {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+
+    .cards {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .cards-2col {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .cards-2col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--bg-white);
+      border: none;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-compact {
+      padding: 1.25rem;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.3em 0.8em;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+    }
+
+    .card-tag.sequoia { background: #dcfce7; color: #166534; }
+    .card-tag.a16z { background: #fef3c7; color: #92400e; }
+    .card-tag.benchmark { background: #dbeafe; color: #1e40af; }
+    .card-tag.founders { background: #f3e8ff; color: #6b21a8; }
+    .card-tag.tiger { background: #fee2e2; color: #991b1b; }
+    .card-tag.lightspeed { background: #fce7f3; color: #9d174d; }
+    .card-tag.greylock { background: #e0e7ff; color: #3730a3; }
+    .card-tag.gc { background: #ccfbf1; color: #115e59; }
+    .card-tag.khosla { background: #fef9c3; color: #854d0e; }
+
+    .card-headline {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 1.35;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .card-headline-sm {
+      font-size: 1.1rem;
+    }
+
+    .card-body {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-body strong {
+      color: var(--text-primary);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+
+    .data-table th {
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.02em;
+      color: var(--text-muted);
+      padding: 0.5rem 0.6rem;
+      border-bottom: 2px solid var(--line-default);
+      text-transform: uppercase;
+    }
+
+    .data-table td {
+      padding: 0.6rem;
+      border-bottom: 1px solid var(--line-subtle);
+      vertical-align: top;
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .data-table .firm-name {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .data-table .number {
+      font-family: var(--sans);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    @media (max-width: 640px) {
+      .metric-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .metric-card {
+      background: var(--bg-tertiary);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .metric-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .metric-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.25rem;
+    }
+
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--green);
+      background: #dcfce7;
+      padding: 0.2em 0.6em;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+    }
+
+    .investment-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.75rem 0;
+    }
+
+    .investment-tag {
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.3em 0.75em;
+      border-radius: 6px;
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+    }
+
+    .quote-block {
+      border-left: 3px solid var(--text-primary);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    .source-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--line-subtle);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 2rem 1.5rem 3rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--line-subtle);
+      max-width: 900px;
+      margin: 2rem auto 0;
+    }
+
+    .comparison-card {
+      background: var(--text-primary);
+      color: white;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .comparison-card .card-headline {
+      color: white;
+    }
+
+    .comparison-card .data-table th {
+      color: rgba(255,255,255,0.6);
+      border-bottom-color: rgba(255,255,255,0.2);
+    }
+
+    .comparison-card .data-table td {
+      color: rgba(255,255,255,0.9);
+      border-bottom-color: rgba(255,255,255,0.1);
+    }
+
+    .comparison-card .firm-name {
+      color: white;
+    }
+
+    .highlight-stat {
+      background: linear-gradient(135deg, #2A8F87 0%, #1D736C 100%);
+      color: white;
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-align: center;
+      margin: 1rem 0;
+    }
+
+    .highlight-stat .big-number {
+      font-size: 4rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .highlight-stat .stat-label {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-top: 0.5rem;
+      opacity: 0.9;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin: 1rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.5rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--line-default);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.65rem;
+      top: 0.4rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .timeline-year {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .timeline-text {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .list-style {
+      margin-left: 1.5rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .list-style li {
+      margin-bottom: 0.25rem;
+    }
+
+    .warning-card {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+    }
+
+    .info-card {
+      background: #dbeafe;
+      border-left: 4px solid #3b82f6;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav-bar">
+    <a href="index.html">Fund Model</a>
+    <a href="vc-research.html" class="active">VC Research</a>
+  </nav>
+
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="overline">Verified Research</div>
+      <h1>Venture Capital Fund Analysis</h1>
+      <div class="edition-date">16 Firms · Portfolio Construction · Returns Data</div>
+      <div class="divider-bar"></div>
+    </div>
+  </header>
+
+  <nav class="section-nav">
+    <a href="#overview" class="section-pill">Overview</a>
+    <a href="#tier1" class="section-pill">Tier 1</a>
+    <a href="#tier2" class="section-pill">Tier 2</a>
+    <a href="#history" class="section-pill">Fund History</a>
+    <a href="#industry" class="section-pill">Industry Insights</a>
+    <a href="#unverified" class="section-pill">What We Can't Verify</a>
+  </nav>
+
+  <!-- OVERVIEW -->
+  <section class="section" id="overview">
+    <div class="section-header">
+      <h2 class="section-title">Complete Fund Overview</h2>
+    </div>
+
+    <div class="cards">
+      <article class="card comparison-card">
+        <h3 class="card-headline">16 Top VC Firms — Verified AUM & History</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Firm</th>
+              <th>Founded</th>
+              <th>AUM</th>
+              <th>Key Verified Metric</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="firm-name">Insight Partners</td>
+              <td>1995</td>
+              <td class="number">$90B</td>
+              <td>875+ investments, 600+ employees</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Andreessen Horowitz</td>
+              <td>2009</td>
+              <td class="number">$90B</td>
+              <td>$15B raised Jan 2026</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Coatue</td>
+              <td>1999</td>
+              <td class="number">$70B</td>
+              <td>Tiger Cub, crossover model</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Sequoia Capital</td>
+              <td>1972</td>
+              <td class="number">$56B</td>
+              <td>Split into 3 entities (2023)</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Tiger Global</td>
+              <td>2001</td>
+              <td class="number">$56B</td>
+              <td style="color: #f87171;">-52% to -62% (2022)</td>
+            </tr>
+            <tr>
+              <td class="firm-name">General Catalyst</td>
+              <td>2000</td>
+              <td class="number">$43B</td>
+              <td>$8B raised Oct 2024, 800+ investments</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Lightspeed</td>
+              <td>2000</td>
+              <td class="number">$35B</td>
+              <td>$7.1B raised 2022</td>
+            </tr>
+            <tr>
+              <td class="firm-name">NEA</td>
+              <td>1977</td>
+              <td class="number">$25B</td>
+              <td>250+ IPOs, 1000 investments</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Bessemer</td>
+              <td>1911</td>
+              <td class="number">$20B</td>
+              <td>115 years old, family-backed</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Founders Fund</td>
+              <td>2005</td>
+              <td class="number">$17B</td>
+              <td>SpaceX/Palantir first investor</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Accel</td>
+              <td>1983</td>
+              <td class="number">$15B+</td>
+              <td>Facebook $12.7M → $6.6B</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Khosla Ventures</td>
+              <td>2004</td>
+              <td class="number">$15B</td>
+              <td>OpenAI first VC investor, $3.1B (2023)</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Index Ventures</td>
+              <td>1996</td>
+              <td class="number">€11.7B</td>
+              <td>European HQ, $2.3B (2024)</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Greylock</td>
+              <td>1965</td>
+              <td class="number">$3.5B</td>
+              <td>61 years old, Reid Hoffman partner</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Benchmark</td>
+              <td>1995</td>
+              <td class="number">~$3.5B</td>
+              <td style="color: #4ade80;">7.5x net (8 funds)</td>
+            </tr>
+            <tr>
+              <td class="firm-name">First Round</td>
+              <td>2004</td>
+              <td class="number">N/A</td>
+              <td>Seed-only, Dorm Room Fund</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="source-note">Sources: Wikipedia, SEC filings, company announcements (2024-2026)</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- TIER 1 FIRMS -->
+  <section class="section" id="tier1">
+    <div class="section-header">
+      <h2 class="section-title">Tier 1 Firms — Deep Profiles</h2>
+    </div>
+
+    <div class="cards">
+      <!-- SEQUOIA -->
+      <article class="card">
+        <span class="card-tag sequoia">Est. 1972</span>
+        <span class="verified-badge">✓ Verified</span>
+        <h3 class="card-headline">Sequoia Capital — The Stewardship Model</h3>
+        
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="metric-value">$56B</div>
+            <div class="metric-label">AUM (2024)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">1972</div>
+            <div class="metric-label">Founded</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">3</div>
+            <div class="metric-label">Entities (2023)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">∞</div>
+            <div class="metric-label">Hold Period</div>
+          </div>
+        </div>
+
+        <p class="card-body"><strong>Founder:</strong> Don Valentine | <strong>HQ:</strong> Menlo Park, CA</p>
+        <p class="card-body"><strong>2023 Restructure:</strong> Split into Sequoia (US/Europe), HongShan (China), Peak XV (India/SEA)</p>
+        <p class="card-body"><strong>2021 Innovation:</strong> Permanent capital structure — holds public stocks indefinitely</p>
+
+        <p class="card-body"><strong>Leadership:</strong> Alfred Lin & Pat Grady (Joint Managing Partners, Nov 2025)</p>
+
+        <p class="card-body"><strong>Verified Investments:</strong></p>
+        <div class="investment-list">
+          <span class="investment-tag">Apple (1978)</span>
+          <span class="investment-tag">Cisco</span>
+          <span class="investment-tag">Google</span>
+          <span class="investment-tag">YouTube</span>
+          <span class="investment-tag">WhatsApp</span>
+          <span class="investment-tag">Stripe</span>
+          <span class="investment-tag">ByteDance</span>
+        </div>
+
+        <div class="source-note">Source: Wikipedia, Sequoia official</div>
+      </article>
+
+      <!-- A16Z -->
+      <article class="card">
+        <span class="card-tag a16z">Est. 2009</span>
+        <span class="verified-badge">✓ Verified</span>
+        <h3 class="card-headline">Andreessen Horowitz — The Platform Model</h3>
+        
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="metric-value">$90B</div>
+            <div class="metric-label">AUM (Jan 2026)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">500+</div>
+            <div class="metric-label">Employees</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">$15B</div>
+            <div class="metric-label">Raised Jan 2026</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">2009</div>
+            <div class="metric-label">Founded</div>
+          </div>
+        </div>
+
+        <p class="card-body"><strong>Founders:</strong> Marc Andreessen (Netscape) & Ben Horowitz (Opsware)</p>
+        
+        <div class="quote-block">
+          "Software is eating the world."
+          <br><small>— Marc Andreessen</small>
+        </div>
+
+        <p class="card-body"><strong>Verified Sector Funds:</strong></p>
+        <div class="investment-list">
+          <span class="investment-tag">American Dynamism ($600M+)</span>
+          <span class="investment-tag">Crypto</span>
+          <span class="investment-tag">Bio + Health</span>
+          <span class="investment-tag">Games</span>
+          <span class="investment-tag">Infrastructure</span>
+        </div>
+
+        <p class="card-body"><strong>Model:</strong> Platform approach — 500+ employees providing recruiting, marketing, BD support</p>
+
+        <div class="source-note">Source: Wikipedia, a16z announcements</div>
+      </article>
+
+      <!-- BENCHMARK -->
+      <article class="card">
+        <span class="card-tag benchmark">Est. 1995</span>
+        <span class="verified-badge">✓ Verified</span>
+        <h3 class="card-headline">Benchmark — The Equal Partnership</h3>
+        
+        <div class="highlight-stat">
+          <div class="big-number">7.5x</div>
+          <div class="stat-label">Net Returns — First 8 Funds (1995-2019)</div>
+        </div>
+
+        <p class="card-body"><strong>Founders:</strong> Bob Kagle, Bruce Dunlevie, Andy Rachleff, Kevin Harvey, Val Vaden</p>
+        <p class="card-body"><strong>HQ:</strong> San Francisco (140 New Montgomery)</p>
+
+        <p class="card-body"><strong>Verified Structure:</strong></p>
+        <ul class="list-style">
+          <li>Equal partnership — no junior/senior partners, no CEO</li>
+          <li>All partners share equal ownership and compensation</li>
+          <li>Board seat required with each investment</li>
+          <li>Profits driven by investment performance, not management fees</li>
+        </ul>
+
+        <table class="data-table">
+          <thead>
+            <tr><th>Company</th><th>Year</th><th>Investment</th><th>Ownership</th><th>Outcome</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="firm-name">eBay</td><td>1997</td><td class="number">$6.7M</td><td>22.1%</td><td style="color: var(--green);">Legendary</td></tr>
+            <tr><td class="firm-name">Uber</td><td>2011</td><td class="number">$12M</td><td>11%</td><td style="color: var(--green);">$9.4B (2023)</td></tr>
+          </tbody>
+        </table>
+
+        <p class="card-body"><strong>Other:</strong> Instagram, Twitter, Dropbox, Discord, Snapchat</p>
+        <p class="card-body"><strong>Partners:</strong> Peter Fenton, Eric Vishria, Chetan Puttagunta | <strong>Former:</strong> Bill Gurley (21 years)</p>
+
+        <div class="source-note">Source: Wikipedia, NYT</div>
+      </article>
+
+      <!-- FOUNDERS FUND -->
+      <article class="card">
+        <span class="card-tag founders">Est. 2005</span>
+        <span class="verified-badge">✓ Verified</span>
+        <h3 class="card-headline">Founders Fund — The Contrarian Thesis</h3>
+        
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="metric-value">$17B</div>
+            <div class="metric-label">AUM (2025)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">38</div>
+            <div class="metric-label">Employees</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">$4.6B</div>
+            <div class="metric-label">Growth III (2025)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">2005</div>
+            <div class="metric-label">Founded</div>
+          </div>
+        </div>
+
+        <p class="card-body"><strong>Founders:</strong> Peter Thiel, Ken Howery, Luke Nosek (PayPal Mafia)</p>
+
+        <div class="quote-block">
+          "We wanted flying cars, instead we got 140 characters."
+          <br><small>— Peter Thiel</small>
+        </div>
+
+        <table class="data-table">
+          <thead><tr><th>Year</th><th>Fund</th><th>Size</th></tr></thead>
+          <tbody>
+            <tr><td>2005</td><td>Fund I</td><td class="number">$50M</td></tr>
+            <tr><td>2014</td><td>Fund V</td><td class="number">$1B</td></tr>
+            <tr><td>2020</td><td>Fund VII + Growth I</td><td class="number">$3B</td></tr>
+            <tr><td>2025</td><td>Growth III</td><td class="number">$4.6B</td></tr>
+          </tbody>
+        </table>
+
+        <p class="card-body"><strong>"First Investor" Deals:</strong> SpaceX (first institutional), Palantir (first investor), Facebook (early)</p>
+        <p class="card-body"><strong>Philosophy:</strong> Shift from social media to hard tech and defense after manifesto "What happened to the future?"</p>
+
+        <div class="source-note">Source: Wikipedia, TechCrunch</div>
+      </article>
+
+      <!-- TIGER GLOBAL -->
+      <article class="card" style="border-left: 4px solid var(--red);">
+        <span class="card-tag tiger">Est. 2001</span>
+        <span class="verified-badge">✓ Verified</span>
+        <h3 class="card-headline">Tiger Global — Speed at Scale</h3>
+        
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="metric-value">$56B</div>
+            <div class="metric-label">AUM (2024)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">162</div>
+            <div class="metric-label">Employees</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">$12.7B</div>
+            <div class="metric-label">2022 Fund</div>
+          </div>
+          <div class="metric-card" style="background: #fee2e2;">
+            <div class="metric-value" style="color: var(--red);">-52%</div>
+            <div class="metric-label">2022 Loss</div>
+          </div>
+        </div>
+
+        <p class="card-body"><strong>Founder:</strong> Chase Coleman III (Tiger Cub — Tiger Management 1997-2000)</p>
+        <p class="card-body"><strong>HQ:</strong> New York (Solow Building, 9 West 57th St)</p>
+
+        <p class="card-body"><strong>Verified 2022 Crisis:</strong></p>
+        <ul class="list-style">
+          <li>Hedge fund: Down <strong>52%</strong> by June 2022</li>
+          <li>Long-only fund: Down <strong>62%</strong> by June 2022</li>
+          <li>WSJ: "One of the largest-ever" hedge fund losses</li>
+          <li>2024: Rebounded 24% but still recouping</li>
+        </ul>
+
+        <p class="card-body"><strong>Peak (2020):</strong> $10.4B profit — most of any hedge fund (LCH Investments)</p>
+
+        <div class="source-note">Source: Wikipedia, WSJ, FT</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- TIER 2 FIRMS -->
+  <section class="section" id="tier2">
+    <div class="section-header">
+      <h2 class="section-title">Tier 2 Firms — Additional Major Players</h2>
+    </div>
+
+    <div class="cards-2col">
+      <!-- INSIGHT PARTNERS -->
+      <article class="card card-compact">
+        <span class="card-tag">Insight Partners • Est. 1995</span>
+        <h3 class="card-headline card-headline-sm">The Software Specialist</h3>
+        <p class="card-body"><strong>AUM:</strong> $90B | <strong>Employees:</strong> 600+ | <strong>HQ:</strong> NYC</p>
+        <p class="card-body"><strong>Founders:</strong> Jeff Horing, Jerry Murdock</p>
+        <p class="card-body"><strong>2022:</strong> $20B flagship fund (doubled previous)</p>
+        <p class="card-body"><strong>2025:</strong> $12.5B across 13th fund</p>
+        <p class="card-body"><strong>Total:</strong> 875+ investments, software/internet focus</p>
+        <p class="card-body"><strong>Model:</strong> Outbound sourcing, analyst program, "Onsite" portfolio support team</p>
+      </article>
+
+      <!-- GENERAL CATALYST -->
+      <article class="card card-compact">
+        <span class="card-tag gc">General Catalyst • Est. 2000</span>
+        <h3 class="card-headline card-headline-sm">The Healthcare Crossover</h3>
+        <p class="card-body"><strong>AUM:</strong> $43B (Dec 2024) | <strong>Employees:</strong> 250+</p>
+        <p class="card-body"><strong>Founders:</strong> Joel Cutler, David Fialkow</p>
+        <p class="card-body"><strong>Leadership:</strong> Hemant Taneja (CEO), Ken Chenault (Chairman)</p>
+        <p class="card-body"><strong>2024:</strong> $8B raised (largest ever), acquired La Famiglia (Germany) + Venture Highway (India)</p>
+        <p class="card-body"><strong>Investments:</strong> Airbnb, Stripe, Snap, Anduril, Mistral, Ramp</p>
+        <p class="card-body"><strong>Unique:</strong> Purchased Summa Health system for $485M — testing AI healthcare tech</p>
+      </article>
+
+      <!-- LIGHTSPEED -->
+      <article class="card card-compact">
+        <span class="card-tag lightspeed">Lightspeed • Est. 2000</span>
+        <h3 class="card-headline card-headline-sm">The Enterprise Specialists</h3>
+        <p class="card-body"><strong>AUM:</strong> $35B | <strong>Offices:</strong> 11 global</p>
+        <p class="card-body"><strong>Founders:</strong> Barry Eggers, Christopher Schaepe, Ravi Mhatre, Peter Nieh (Stanford grads)</p>
+        <p class="card-body"><strong>2022:</strong> $7.1B across four funds</p>
+        <p class="card-body"><strong>Focus:</strong> Enterprise, fintech, consumer, healthcare</p>
+        <p class="card-body"><strong>Key Deals:</strong> Snap (first investor 2012), Affirm, Rubrik, Mistral AI (seed), Glean (Series A)</p>
+        <p class="card-body"><strong>Exits:</strong> MuleSoft ($6.5B), AppDynamics ($3.7B), Nest ($3.2B)</p>
+      </article>
+
+      <!-- KHOSLA -->
+      <article class="card card-compact">
+        <span class="card-tag khosla">Khosla Ventures • Est. 2004</span>
+        <h3 class="card-headline card-headline-sm">The Frontier Investor</h3>
+        <p class="card-body"><strong>AUM:</strong> $15B | <strong>Founder:</strong> Vinod Khosla (Kleiner Perkins, Sun co-founder)</p>
+        <p class="card-body"><strong>2023:</strong> $3.1B (largest VC raise that year) — nuclear fusion, humanoid robots, AI</p>
+        <p class="card-body"><strong>First VC investor:</strong> OpenAI (2018)</p>
+        <p class="card-body"><strong>Key Deals:</strong> DoorDash, Instacart, Square, Affirm, Stripe, Impossible Foods</p>
+        <p class="card-body"><strong>Recognition:</strong> #1 Founder's Choice VC (2023)</p>
+        <p class="card-body"><strong>Focus:</strong> AI, climate, healthcare, frontier tech</p>
+      </article>
+
+      <!-- GREYLOCK -->
+      <article class="card card-compact">
+        <span class="card-tag greylock">Greylock • Est. 1965</span>
+        <h3 class="card-headline card-headline-sm">The 61-Year Veteran</h3>
+        <p class="card-body"><strong>AUM:</strong> $3.5B | <strong>Employees:</strong> 30+</p>
+        <p class="card-body"><strong>Founders:</strong> Bill Elfers, Dan Gregory (original capital: $10M from 6 families)</p>
+        <p class="card-body"><strong>HQ:</strong> Menlo Park (moved from Boston 2009)</p>
+        <p class="card-body"><strong>Funds:</strong> $1B Fund XVI (2020) + $500M seed fund (2021)</p>
+        <p class="card-body"><strong>Partners:</strong> David Sze, Reid Hoffman (LinkedIn), Mustafa Suleyman (DeepMind)</p>
+        <p class="card-body"><strong>Model:</strong> "Communities" networking events for product/engineering talent</p>
+      </article>
+
+      <!-- BESSEMER -->
+      <article class="card card-compact">
+        <span class="card-tag">Bessemer • Est. 1911</span>
+        <h3 class="card-headline card-headline-sm">The 115-Year-Old Family Office</h3>
+        <p class="card-body"><strong>AUM:</strong> $20B | <strong>Employees:</strong> 151</p>
+        <p class="card-body"><strong>Origin:</strong> Henry Phipps Jr. (Carnegie Steel co-founder) — family office since 1911</p>
+        <p class="card-body"><strong>Parent:</strong> Bessemer Securities (Phipps family)</p>
+        <p class="card-body"><strong>2022:</strong> $3.85B 12th fund + $780M BVP Forge (buyout fund)</p>
+        <p class="card-body"><strong>First outside capital:</strong> 2007 (96 years of family-only funding)</p>
+        <p class="card-body"><strong>2024:</strong> Ranked 3rd largest VC (Venture Capital Journal)</p>
+      </article>
+
+      <!-- INDEX VENTURES -->
+      <article class="card card-compact">
+        <span class="card-tag">Index Ventures • Est. 1996</span>
+        <h3 class="card-headline card-headline-sm">The European Champion</h3>
+        <p class="card-body"><strong>AUM:</strong> €11.7B | <strong>HQ:</strong> London</p>
+        <p class="card-body"><strong>Founders:</strong> Neil Rimer, David Rimer, Giuseppe Zocco (Geneva)</p>
+        <p class="card-body"><strong>2024:</strong> $2.3B for venture and growth funds</p>
+        <p class="card-body"><strong>2021:</strong> $3.1B total ($900M early, $2B growth, $200M seed)</p>
+        <p class="card-body"><strong>Offices:</strong> London, SF, NYC, Geneva, Jersey</p>
+        <p class="card-body"><strong>Spin-off:</strong> Medicxi Ventures (life sciences, 2016)</p>
+      </article>
+
+      <!-- ACCEL -->
+      <article class="card card-compact">
+        <span class="card-tag">Accel • Est. 1983</span>
+        <h3 class="card-headline card-headline-sm">The "Prepared Mind" Model</h3>
+        <p class="card-body"><strong>AUM:</strong> $15B+ | <strong>Employees:</strong> 300</p>
+        <p class="card-body"><strong>Founders:</strong> Arthur Patterson, Jim Swartz</p>
+        <p class="card-body"><strong>Philosophy:</strong> "Chance favors the prepared mind" (Louis Pasteur)</p>
+        <p class="card-body"><strong>Landmark:</strong> Facebook (May 2005) — $12.7M for 10% pre-revenue → $6.6B at IPO</p>
+        <p class="card-body"><strong>Regional:</strong> $650M Europe/Israel (2024), $650M India/SEA (2025)</p>
+        <p class="card-body"><strong>Investments:</strong> Atlassian, CrowdStrike, Slack, Spotify, Dropbox, UiPath</p>
+      </article>
+
+      <!-- NEA -->
+      <article class="card card-compact">
+        <span class="card-tag">NEA • Est. 1977</span>
+        <h3 class="card-headline card-headline-sm">The Multi-Stage Veteran</h3>
+        <p class="card-body"><strong>AUM:</strong> $25B | <strong>Track Record:</strong> ~1,000 investments</p>
+        <p class="card-body"><strong>Founders:</strong> Dick Kramlich, Chuck Newhall III, Frank Bonsal Jr.</p>
+        <p class="card-body"><strong>First fund:</strong> $16M (1977) → Fund XVI: $3.3B (2017, largest at time)</p>
+        <p class="card-body"><strong>Results:</strong> 650+ liquidity events, 250+ IPOs, 300+ acquisitions</p>
+        <p class="card-body"><strong>Focus:</strong> Technology + Healthcare balance</p>
+      </article>
+
+      <!-- COATUE -->
+      <article class="card card-compact">
+        <span class="card-tag">Coatue • Est. 1999</span>
+        <h3 class="card-headline card-headline-sm">The Tiger Cub Crossover</h3>
+        <p class="card-body"><strong>AUM:</strong> $70B | <strong>Employees:</strong> 157</p>
+        <p class="card-body"><strong>Founder:</strong> Philippe Laffont (MIT '89, Tiger Management '96)</p>
+        <p class="card-body"><strong>HQ:</strong> NYC (Solow Building)</p>
+        <p class="card-body"><strong>Model:</strong> Hedge fund + PE crossover — uses public data for private investments</p>
+        <p class="card-body"><strong>2020:</strong> $3.5B Growth Fund IV</p>
+        <p class="card-body"><strong>Investments:</strong> Anthropic, ByteDance, DoorDash, Instacart, Snap, Spotify</p>
+      </article>
+
+      <!-- FIRST ROUND -->
+      <article class="card card-compact">
+        <span class="card-tag">First Round • Est. 2004</span>
+        <h3 class="card-headline card-headline-sm">The Seed Specialist</h3>
+        <p class="card-body"><strong>Founders:</strong> Josh Kopelman, Howard Morgan</p>
+        <p class="card-body"><strong>HQ:</strong> San Francisco</p>
+        <p class="card-body"><strong>Focus:</strong> Seed-stage only — "First 18 months"</p>
+        <p class="card-body"><strong>Programs:</strong> Dorm Room Fund (2012, student-run), Graduate Fund (2019, recent grads)</p>
+        <p class="card-body"><strong>Content:</strong> First Round Review — 600+ articles, 200K+ subscribers, 10+ years</p>
+      </article>
+
+      <!-- GGV / NOTABLE -->
+      <article class="card card-compact">
+        <span class="card-tag">GGV Capital • 2000-2024</span>
+        <h3 class="card-headline card-headline-sm">Split: Notable + Granite Asia</h3>
+        <p class="card-body"><strong>AUM (2022):</strong> $9B before split</p>
+        <p class="card-body"><strong>End:</strong> March 29, 2024 — split due to US-China tensions</p>
+        <p class="card-body"><strong>Notable Capital:</strong> US-focused successor</p>
+        <p class="card-body"><strong>Granite Asia:</strong> Asia-focused successor</p>
+        <p class="card-body"><strong>History:</strong> 200+ companies, 56+ unicorns, most active US investor in Chinese AI</p>
+        <p class="card-body"><strong>Key person:</strong> Jenny Lee (established Shanghai 2005)</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- INDUSTRY INSIGHTS -->
+  <section class="section" id="industry">
+    <div class="section-header">
+      <h2 class="section-title">Industry Insights — Verified Patterns</h2>
+    </div>
+
+    <div class="cards">
+      <article class="card">
+        <h3 class="card-headline">Fund Models — Verified Differences</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Model</th><th>Firms</th><th>Key Characteristic</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="firm-name">Equal Partnership</td>
+              <td>Benchmark</td>
+              <td>No hierarchy, equal carry, small fund ($425M), board seats required</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Platform</td>
+              <td>a16z, General Catalyst</td>
+              <td>Large services teams (500+ employees), recruiting/marketing support</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Permanent Capital</td>
+              <td>Sequoia</td>
+              <td>Hold public stocks indefinitely, no forced IPO selling</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Crossover</td>
+              <td>Tiger, Coatue, Insight</td>
+              <td>Hedge fund + PE, public market data informs private deals</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Family Office</td>
+              <td>Bessemer</td>
+              <td>115 years old, Phipps family backing, riskier bets possible</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Contrarian</td>
+              <td>Founders Fund, Khosla</td>
+              <td>Hard tech focus, first investors in SpaceX/OpenAI</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Seed Specialist</td>
+              <td>First Round</td>
+              <td>"First 18 months" only, content platform, student funds</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="card">
+        <h3 class="card-headline">Tiger Cubs — Verified Lineage</h3>
+        <p class="card-body">30+ fund managers emerged from Julian Robertson's Tiger Management:</p>
+        <table class="data-table">
+          <thead>
+            <tr><th>Firm</th><th>Founder</th><th>Tiger Years</th><th>Current AUM</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="firm-name">Tiger Global</td>
+              <td>Chase Coleman III</td>
+              <td>1997-2000</td>
+              <td class="number">$56B</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Coatue</td>
+              <td>Philippe Laffont</td>
+              <td>1996-1999</td>
+              <td class="number">$70B</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="card-body" style="margin-top: 1rem;"><strong>Tiger Management DNA:</strong> Long-short equity, fundamental research, concentrated positions, speed in decision-making</p>
+      </article>
+
+      <article class="card">
+        <h3 class="card-headline">Verified Landmark Returns</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Deal</th><th>Firm</th><th>Investment</th><th>Outcome</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="firm-name">eBay (1997)</td>
+              <td>Benchmark</td>
+              <td>$6.7M for 22.1%</td>
+              <td style="color: var(--green);">~$5B+ return</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Facebook (2005)</td>
+              <td>Accel</td>
+              <td>$12.7M for 10%</td>
+              <td style="color: var(--green);">$6.6B at IPO</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Uber (2011)</td>
+              <td>Benchmark</td>
+              <td>$12M for 11%</td>
+              <td style="color: var(--green);">$9.4B (2023)</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Rocket Lab (2013)</td>
+              <td>Khosla</td>
+              <td>$28M (Series A)</td>
+              <td style="color: var(--green);">$1.7B at IPO</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="card">
+        <h3 class="card-headline">Fund Size Evolution — Verified Growth</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Firm</th><th>First Fund</th><th>Latest Fund</th><th>Multiple</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="firm-name">Founders Fund</td>
+              <td>$50M (2005)</td>
+              <td>$4.6B Growth III (2025)</td>
+              <td class="number">92x</td>
+            </tr>
+            <tr>
+              <td class="firm-name">NEA</td>
+              <td>$16M (1977)</td>
+              <td>$3.3B XVI (2017)</td>
+              <td class="number">206x</td>
+            </tr>
+            <tr>
+              <td class="firm-name">a16z</td>
+              <td>$300M (2009)</td>
+              <td>$15B (2026)</td>
+              <td class="number">50x per raise</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Greylock</td>
+              <td>$10M (1965)</td>
+              <td>$1.5B (XVI + seed)</td>
+              <td class="number">150x</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+    </div>
+  </section>
+
+  <!-- FUND HISTORY -->
+  <section class="section" id="history">
+    <div class="section-header">
+      <h2 class="section-title">Fund-by-Fund History — How They Grew</h2>
+    </div>
+
+    <div class="cards">
+      <!-- FOUNDERS FUND -->
+      <article class="card">
+        <span class="card-tag founders">Founders Fund</span>
+        <h3 class="card-headline">$50M → $17B in 20 Years</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Year</th><th>Fund</th><th>Size</th><th>Cumulative</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2005</td><td>Fund I</td><td class="number">$50M</td><td>$50M</td><td>PayPal Mafia launch</td></tr>
+            <tr><td>2007</td><td>Fund II</td><td class="number">$220M</td><td>$270M</td><td>4.4x step-up</td></tr>
+            <tr><td>2010</td><td>Fund III</td><td class="number">$250M</td><td>$520M</td><td>SpaceX, Palantir paying off</td></tr>
+            <tr><td>2011</td><td>Fund IV</td><td class="number">$625M</td><td>$1.1B</td><td>2.5x step-up</td></tr>
+            <tr><td>2014</td><td>Fund V</td><td class="number">$1B</td><td>$2.1B</td><td>First billion-dollar fund</td></tr>
+            <tr><td>2016</td><td>Fund VI</td><td class="number">$1.3B</td><td>$3.4B</td><td></td></tr>
+            <tr><td>2020</td><td>Fund VII + Growth I</td><td class="number">$3B</td><td>$6.4B</td><td>Added growth vehicle</td></tr>
+            <tr><td>2022</td><td>Fund VIII + Growth II</td><td class="number">$5B+</td><td>$11.4B</td><td></td></tr>
+            <tr><td>2023</td><td>Fund VIII (cut)</td><td class="number">$900M</td><td>—</td><td>Thiel cut from $1.8B</td></tr>
+            <tr><td>2025</td><td>Growth III</td><td class="number">$4.6B</td><td>$17B</td><td>Largest growth fund</td></tr>
+          </tbody>
+        </table>
+        <p class="card-body"><strong>Pattern:</strong> 2-3x step-ups until 2020, then added parallel growth funds</p>
+      </article>
+
+      <!-- A16Z -->
+      <article class="card">
+        <span class="card-tag a16z">Andreessen Horowitz</span>
+        <h3 class="card-headline">$300M → $90B in 17 Years</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Year</th><th>Fund/Event</th><th>Size</th><th>Cumulative AUM</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2009</td><td>Fund I</td><td class="number">$300M</td><td>$300M</td></tr>
+            <tr><td>2010</td><td>Fund II</td><td class="number">$650M</td><td>$950M</td></tr>
+            <tr><td>2012</td><td>Fund III</td><td class="number">$1.5B</td><td>$2.7B</td></tr>
+            <tr><td>2014</td><td>Fund IV</td><td class="number">$1.5B</td><td>$4B</td></tr>
+            <tr><td>2016</td><td>Fund V</td><td class="number">$1.5B</td><td>~$6B</td></tr>
+            <tr><td>2018</td><td>Crypto Fund I</td><td class="number">$300M</td><td>—</td></tr>
+            <tr><td>2019</td><td>Bio Fund I</td><td class="number">$450M</td><td>—</td></tr>
+            <tr><td>2020</td><td>Crypto Fund II</td><td class="number">$515M</td><td>—</td></tr>
+            <tr><td>2022</td><td>Multiple funds</td><td class="number">$9B</td><td>~$35B</td></tr>
+            <tr><td>2022</td><td>Crypto Fund IV</td><td class="number">$4.5B</td><td>—</td></tr>
+            <tr><td>2024</td><td>Infrastructure</td><td class="number">$4B</td><td>—</td></tr>
+            <tr><td>2026</td><td>5 new funds</td><td class="number">$15B</td><td>$90B</td></tr>
+          </tbody>
+        </table>
+        <p class="card-body"><strong>Pattern:</strong> Sector-specific funds (crypto, bio, games, infra) drove AUM explosion post-2018</p>
+      </article>
+
+      <!-- NEA -->
+      <article class="card">
+        <span class="card-tag">NEA</span>
+        <h3 class="card-headline">$16M → $25B in 48 Years (206x)</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Year</th><th>Fund</th><th>Size</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1977</td><td>Fund I</td><td class="number">$16M</td><td>Founded</td></tr>
+            <tr><td>1979</td><td>Fund II</td><td class="number">$45M</td><td>2.8x step-up</td></tr>
+            <tr><td>1984</td><td>Fund III</td><td class="number">$125M</td><td>2.8x step-up</td></tr>
+            <tr><td>1987-96</td><td>Funds IV-VII</td><td class="number">$900M total</td><td>4 funds over 9 years</td></tr>
+            <tr><td>1998</td><td>Fund VIII</td><td class="number">Large increase</td><td>Dot-com era</td></tr>
+            <tr><td>2000</td><td>Fund X</td><td class="number">$2.3B</td><td>Peak dot-com</td></tr>
+            <tr><td>2004</td><td>Fund XI</td><td class="number">$1.1B</td><td>Post-crash right-sizing</td></tr>
+            <tr><td>2010</td><td>Fund XIII</td><td class="number">$2.5B</td><td>Largest since 2008 crisis</td></tr>
+            <tr><td>2012</td><td>Fund XIV</td><td class="number">$2.6B</td><td></td></tr>
+            <tr><td>2015</td><td>Fund XV</td><td class="number">$3.1B</td><td>Largest VC fund ever (at time)</td></tr>
+            <tr><td>2017</td><td>Fund XVI</td><td class="number">$3.3B</td><td>Again largest ever</td></tr>
+          </tbody>
+        </table>
+        <p class="card-body"><strong>Pattern:</strong> Steady growth with post-crash corrections; consistently pushed "largest ever" boundaries</p>
+      </article>
+
+      <!-- GREYLOCK -->
+      <article class="card">
+        <span class="card-tag greylock">Greylock</span>
+        <h3 class="card-headline">$10M → $3.5B in 61 Years (350x)</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Year</th><th>Fund</th><th>Size</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1965</td><td>Fund I</td><td class="number">$10M</td><td>6 families' capital</td></tr>
+            <tr><td>1973</td><td>Fund II</td><td class="number">—</td><td>8 years to second fund</td></tr>
+            <tr><td>2005</td><td>Fund XII</td><td class="number">$500M</td><td></td></tr>
+            <tr><td>2009</td><td>Fund XIII</td><td class="number">$575M</td><td>Moved HQ to Silicon Valley</td></tr>
+            <tr><td>2011</td><td>Fund XIII+</td><td class="number">$1B</td><td>Increased existing fund</td></tr>
+            <tr><td>2013</td><td>Fund XIV</td><td class="number">$1B</td><td></td></tr>
+            <tr><td>2016</td><td>Fund XV</td><td class="number">$1B</td><td></td></tr>
+            <tr><td>2020</td><td>Fund XVI</td><td class="number">$1B</td><td></td></tr>
+            <tr><td>2021</td><td>Seed Fund</td><td class="number">$500M</td><td>Dedicated seed vehicle</td></tr>
+          </tbody>
+        </table>
+        <p class="card-body"><strong>Pattern:</strong> Slow, disciplined growth. Stayed at $1B/fund for 10 years. Added seed fund for earlier deals.</p>
+      </article>
+
+      <!-- LIGHTSPEED -->
+      <article class="card">
+        <span class="card-tag lightspeed">Lightspeed</span>
+        <h3 class="card-headline">Fund Growth to $35B AUM</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Year</th><th>Fund/Event</th><th>Size</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2000</td><td>Founded</td><td>—</td><td>Stanford grads, enterprise focus</td></tr>
+            <tr><td>2008</td><td>Fund VIII</td><td class="number">$800M</td><td>Oversubscribed</td></tr>
+            <tr><td>2014</td><td>Fund X</td><td class="number">$1B</td><td></td></tr>
+            <tr><td>2016</td><td>Two funds</td><td class="number">$1.2B</td><td></td></tr>
+            <tr><td>2020</td><td>Three funds</td><td class="number">$4.2B</td><td>$890M early + $1.83B growth + $1.5B opportunity</td></tr>
+            <tr><td>2022</td><td>Four funds</td><td class="number">$7.1B</td><td>$1.98B XIV + $2.26B Select + $2.36B Opportunity</td></tr>
+            <tr><td>2022</td><td>India Fund IV</td><td class="number">$500M</td><td>Separate India vehicle</td></tr>
+          </tbody>
+        </table>
+        <p class="card-body"><strong>Pattern:</strong> Multi-vehicle strategy (early + growth + opportunity + regional). Snap investment (2012) was inflection point.</p>
+      </article>
+
+      <!-- KHOSLA -->
+      <article class="card">
+        <span class="card-tag khosla">Khosla Ventures</span>
+        <h3 class="card-headline">Self-Funded → $15B</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Year</th><th>Fund</th><th>Size</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2004</td><td>Fund I</td><td class="number">Personal</td><td>Vinod's own capital only</td></tr>
+            <tr><td>2006</td><td>Fund II</td><td class="number">Personal</td><td>Still no outside LPs</td></tr>
+            <tr><td>2009</td><td>Fund III + Seed</td><td class="number">$1.3B</td><td>$1B main + $300M seed. First outside capital.</td></tr>
+            <tr><td>2017</td><td>—</td><td class="number">$5B AUM</td><td></td></tr>
+            <tr><td>2021</td><td>Two funds</td><td class="number">$1.4B</td><td>$400M seed + $1B later-stage</td></tr>
+            <tr><td>2022</td><td>Opportunity I</td><td class="number">$557M</td><td>First opportunity fund</td></tr>
+            <tr><td>2023</td><td>Three funds</td><td class="number">$3.1B</td><td>$500M seed + $1B later + $1.6B VIII. Largest VC raise that year.</td></tr>
+            <tr><td>2024</td><td>OpenAI SPV</td><td class="number">$405M</td><td>Special vehicle for OpenAI round</td></tr>
+          </tbody>
+        </table>
+        <p class="card-body"><strong>Pattern:</strong> Started with personal capital (5 years), then scaled with outside LPs. Clean tech → AI pivot.</p>
+      </article>
+
+      <!-- GENERAL CATALYST -->
+      <article class="card">
+        <span class="card-tag gc">General Catalyst</span>
+        <h3 class="card-headline">$0 → $43B in 26 Years</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Year</th><th>Fund/Event</th><th>Size</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2000</td><td>Founded</td><td>—</td><td>Massachusetts</td></tr>
+            <tr><td>2010</td><td>Silicon Valley office</td><td>—</td><td>Expansion west</td></tr>
+            <tr><td>2013</td><td>Fund VII</td><td class="number">$675M</td><td></td></tr>
+            <tr><td>2020</td><td>Fund X</td><td class="number">$2.3B</td><td>COVID-era raise</td></tr>
+            <tr><td>2021</td><td>Health Assurance</td><td class="number">$600M</td><td>Healthcare-specific fund</td></tr>
+            <tr><td>2021</td><td>—</td><td class="number">$8B AUM</td><td></td></tr>
+            <tr><td>2022</td><td>Fund XI + Health II</td><td class="number">$5.3B</td><td>$4.6B main + $670M health</td></tr>
+            <tr><td>2024</td><td>New funds</td><td class="number">$8B</td><td>Largest raise ever. Acquired La Famiglia + Venture Highway.</td></tr>
+            <tr><td>2024</td><td>Summa Health</td><td class="number">$485M</td><td>Bought health system (!)</td></tr>
+          </tbody>
+        </table>
+        <p class="card-body"><strong>Pattern:</strong> Healthcare crossover strategy. Buying actual health systems to test portfolio AI tech is unprecedented.</p>
+      </article>
+
+      <!-- INSIGHT -->
+      <article class="card">
+        <span class="card-tag">Insight Partners</span>
+        <h3 class="card-headline">$0 → $90B in 31 Years</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Year</th><th>Fund</th><th>Size</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1995</td><td>Founded</td><td>—</td><td>Software/internet focus</td></tr>
+            <tr><td>2013</td><td>Fund</td><td class="number">$2.57B</td><td></td></tr>
+            <tr><td>2021</td><td>Opportunities I</td><td class="number">$1.56B</td><td>Preferred equity vehicle</td></tr>
+            <tr><td>2022</td><td>Fund XII</td><td class="number">$20B</td><td>Doubled previous flagship</td></tr>
+            <tr><td>2025</td><td>Fund XIII + structured</td><td class="number">$12.5B</td><td>Missed target but still massive</td></tr>
+          </tbody>
+        </table>
+        <p class="card-body"><strong>Pattern:</strong> Pure software focus. Outbound sourcing model with analyst program. 875+ investments total.</p>
+      </article>
+
+      <!-- BESSEMER -->
+      <article class="card">
+        <span class="card-tag">Bessemer</span>
+        <h3 class="card-headline">115 Years of History</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Year</th><th>Event</th><th>Size</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1911</td><td>Bessemer Securities</td><td class="number">$20M</td><td>Henry Phipps Jr. (Carnegie Steel)</td></tr>
+            <tr><td>1974</td><td>Bessemer Trust opens</td><td>—</td><td>Took outside investors</td></tr>
+            <tr><td>1975</td><td>Silicon Valley office</td><td>—</td><td>Early mover</td></tr>
+            <tr><td>1986</td><td>—</td><td class="number">$950M AUM</td><td>Still family-only</td></tr>
+            <tr><td>2007</td><td>Fund VII</td><td class="number">First outside LP</td><td>96 years of family-only capital</td></tr>
+            <tr><td>2011</td><td>—</td><td class="number">$1.6B</td><td>25% earmarked for India</td></tr>
+            <tr><td>2022</td><td>Fund XII + Forge</td><td class="number">$4.6B</td><td>$3.85B venture + $780M buyout</td></tr>
+          </tbody>
+        </table>
+        <p class="card-body"><strong>Pattern:</strong> Family office for 96 years before taking outside capital. Launched buyout arm (BVP Forge) in 2022.</p>
+      </article>
+
+      <!-- INDEX -->
+      <article class="card">
+        <span class="card-tag">Index Ventures</span>
+        <h3 class="card-headline">Swiss Origins → €11.7B</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Year</th><th>Fund</th><th>Size</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1996</td><td>Founded</td><td>—</td><td>Geneva, Switzerland</td></tr>
+            <tr><td>2005</td><td>Fund III</td><td class="number">€300M</td><td></td></tr>
+            <tr><td>2007</td><td>Fund IV</td><td class="number">€350M</td><td>15-20% Israel</td></tr>
+            <tr><td>2012</td><td>Fund VI</td><td class="number">€350M</td><td></td></tr>
+            <tr><td>2014</td><td>Early-stage</td><td class="number">$550M</td><td></td></tr>
+            <tr><td>2017</td><td>Fund VII</td><td class="number">€400M</td><td></td></tr>
+            <tr><td>2021</td><td>Multiple</td><td class="number">$3.1B</td><td>$900M early + $2B growth + $200M seed</td></tr>
+            <tr><td>2022</td><td>Seed II</td><td class="number">$300M</td><td></td></tr>
+            <tr><td>2024</td><td>New funds</td><td class="number">$2.3B</td><td>AI focus</td></tr>
+          </tbody>
+        </table>
+        <p class="card-body"><strong>Pattern:</strong> European HQ (rare). Spun off life sciences as Medicxi (2016). Multi-geography: Europe, US, Israel.</p>
+      </article>
+
+      <!-- BENCHMARK -->
+      <article class="card">
+        <span class="card-tag benchmark">Benchmark</span>
+        <h3 class="card-headline">Disciplined $425M Funds</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Fund</th><th>Size</th><th>Notable Investments</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Fund I (1995)</td><td class="number">$85M</td><td>eBay</td></tr>
+            <tr><td>Fund II</td><td class="number">~$150M</td><td></td></tr>
+            <tr><td>Funds III-VIII</td><td class="number">$400-500M each</td><td>Twitter, Uber, Instagram, Snapchat, Discord</td></tr>
+            <tr><td>Recent funds</td><td class="number">~$425M</td><td>WeWork (loss), others</td></tr>
+          </tbody>
+        </table>
+        <p class="card-body"><strong>Pattern:</strong> Deliberately kept fund size flat for 20+ years. Philosophy: smaller fund = higher returns potential. 7.5x net across 8 funds proves the model.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- WHAT WE CAN'T VERIFY -->
+  <section class="section" id="unverified">
+    <div class="section-header">
+      <h2 class="section-title">What We Cannot Verify</h2>
+    </div>
+
+    <div class="cards">
+      <article class="card warning-card">
+        <h3 class="card-headline">⚠️ Not Publicly Disclosed</h3>
+        <p class="card-body">The following data points are <strong>proprietary</strong> and not reported by major VC firms:</p>
+        
+        <table class="data-table">
+          <thead>
+            <tr><th>Category</th><th>What We Don't Know</th><th>Why It Matters</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="firm-name">Scout Programs</td>
+              <td>Exact $ allocated, # scouts, carry terms, deal volume</td>
+              <td>Hard to compare sourcing strategies</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Fund Construction %</td>
+              <td>% to seed vs. A vs. growth vs. follow-on reserves</td>
+              <td>Can't model portfolio construction precisely</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Ownership Targets</td>
+              <td>Specific % targets by stage, minimum thresholds</td>
+              <td>Industry estimates vary widely (10-25%)</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Deals Per Year</td>
+              <td>Total deal flow, conversion rates, pass rates</td>
+              <td>Can't assess selectivity or bandwidth</td>
+            </tr>
+            <tr>
+              <td class="firm-name">GP Economics</td>
+              <td>Management fee %, carry splits, GP commit</td>
+              <td>Standard "2 and 20" varies significantly</td>
+            </tr>
+            <tr>
+              <td class="firm-name">LP Base</td>
+              <td>Which endowments, pensions, family offices invest</td>
+              <td>Only disclosed when LPs file publicly</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Decision Process</td>
+              <td># partners to approve, IC structure, veto rights</td>
+              <td>Affects speed and deal dynamics</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Win Rates</td>
+              <td>% of deals pursued vs. won, competitive dynamics</td>
+              <td>Can't assess brand/access advantage</td>
+            </tr>
+            <tr>
+              <td class="firm-name">IRR/TVPI by Fund</td>
+              <td>Only Benchmark's 7.5x is public</td>
+              <td>Most returns data is estimated</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="card info-card">
+        <h3 class="card-headline">💡 Industry Standard Estimates</h3>
+        <p class="card-body">These are commonly cited but <strong>not verified firm-by-firm</strong>:</p>
+        
+        <table class="data-table">
+          <thead>
+            <tr><th>Metric</th><th>Industry Estimate</th><th>Reality</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="firm-name">Management Fee</td>
+              <td>2% of committed capital</td>
+              <td>Often 1.5-2.5%, may step down over time</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Carried Interest</td>
+              <td>20% of profits</td>
+              <td>Top firms may command 25-30%</td>
+            </tr>
+            <tr>
+              <td class="firm-name">GP Commit</td>
+              <td>1-2% of fund</td>
+              <td>Some firms commit 5%+</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Follow-on Reserves</td>
+              <td>40-60% of fund</td>
+              <td>Varies by strategy (Benchmark: ~53%)</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Ownership Target</td>
+              <td>15-20% at Series A</td>
+              <td>Ranges from 10-25%+ depending on firm</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Fund Life</td>
+              <td>10 years + 2 extensions</td>
+              <td>Some permanent capital (Sequoia)</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <p class="card-body" style="margin-top: 1rem;"><strong>Note:</strong> Any analysis using these percentages should treat them as directional estimates, not verified facts.</p>
+      </article>
+
+      <article class="card">
+        <h3 class="card-headline">What IS Verifiable</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Category</th><th>Source</th><th>Reliability</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="firm-name">AUM (total capital)</td>
+              <td>SEC Form ADV, press releases</td>
+              <td style="color: var(--green);">High</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Fund raises</td>
+              <td>SEC filings, press releases</td>
+              <td style="color: var(--green);">High</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Public exits (IPO)</td>
+              <td>SEC S-1 filings</td>
+              <td style="color: var(--green);">High</td>
+            </tr>
+            <tr>
+              <td class="firm-name">M&A exits</td>
+              <td>Press releases, regulatory filings</td>
+              <td style="color: var(--green);">High</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Founding date/partners</td>
+              <td>Wikipedia, firm websites</td>
+              <td style="color: var(--green);">High</td>
+            </tr>
+            <tr>
+              <td class="firm-name">Investment announcements</td>
+              <td>Crunchbase, press releases</td>
+              <td>Medium (not all disclosed)</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>VC Fund Research — Verified Data Only</p>
+    <p style="margin-top: 0.5rem;">16 Firms Profiled · Sources: Wikipedia, SEC, NYT, WSJ, FT, TechCrunch, Company Websites</p>
+    <p style="margin-top: 0.5rem;">Last Updated: February 2026</p>
+  </footer>
+
+</body>
+</html>

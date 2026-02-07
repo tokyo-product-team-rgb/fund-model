@@ -6,36 +6,87 @@
   <title>VC Fund Model Simulator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    @font-face {
+      font-family: 'Copernicus Trial';
+      src: url('fonts/CopernicusTrial-Book.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Copernicus Trial';
+      src: url('fonts/CopernicusTrial-Medium.ttf') format('truetype');
+      font-weight: 500;
+      font-style: normal;
+    }
+
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #fafaf9;
-      --surface: #ffffff;
-      --text: #1a1a1a;
-      --text-secondary: #555;
-      --text-muted: #888;
-      --border: #e8e5e1;
-      --accent: #1e3a5f;
-      --accent-light: #e0f2fe;
+      /* Text colors */
+      --text-primary: #111111;
+      --text-secondary: #44403C;
+      --text-tertiary: #78716C;
+      --text-link: #1D736C;
+      --text-link-hover: #2A8F87;
+      --text-error: #C5624E;
+
+      /* Background colors */
+      --bg-primary: #F9F9F9;
+      --bg-secondary: #FDFDFD;
+      --bg-tertiary: #F7F6F4;
+      --bg-hover: #F5F4F3;
+      --bg-hover-darker: #ECEAE7;
+      --bg-white: #FFFFFF;
+      --bg-accent: #2A8F87;
+      --bg-accent-dark: #1D736C;
+
+      /* Lines/Borders */
+      --line-subtle: #E8E5E1;
+      --line-default: #D5D2CD;
+      --line-neutral: rgba(0,0,0,0.06);
+
+      /* Chart colors */
+      --chart-primary: #2A8F87;
+      --chart-secondary: #E07A3F;
+      --chart-tertiary: #E3B341;
+      --chart-reference: #4C78A8;
+      --chart-outlier: #C06C84;
+      --chart-warning: #B94A48;
+
+      /* Highlights */
+      --highlight-emphasis: #F4E3B1;
+      --highlight-info: #E3EBF5;
+      --highlight-warning: #F6E3E1;
+      --highlight-brand: #E5FBF8;
+
+      /* GP/LP colors */
       --gp-color: #7c3aed;
-      --lp-color: #0891b2;
-      --serif: 'Playfair Display', Georgia, serif;
-      --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
-      --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
-      --radius: 8px;
-      --green: #16a34a;
-      --red: #dc2626;
+      --lp-color: #2A8F87;
+
+      /* Typography */
+      --serif: 'Copernicus Trial', Georgia, serif;
+      --sans: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      /* Shadows */
+      --shadow-card: 0 4px 8px rgba(0,0,0,0.04), 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-card-hover: 0 8px 16px rgba(0,0,0,0.06), 0 4px 8px rgba(0,0,0,0.04);
+
+      /* Radius */
+      --radius: 24px;
+
+      /* Status colors */
+      --green: #1D736C;
+      --red: #B94A48;
       --yellow: #ca8a04;
     }
 
     html { font-size: 16px; }
     body {
       font-family: var(--sans);
-      background: var(--bg);
-      color: var(--text);
+      background: var(--bg-primary);
+      color: var(--text-primary);
       line-height: 1.65;
     }
 
@@ -43,25 +94,29 @@
       display: flex;
       justify-content: center;
       gap: 0;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
+      background: var(--bg-secondary);
       font-size: 0.8rem;
       font-weight: 500;
     }
     .nav-bar a {
       text-decoration: none;
-      color: var(--text-muted);
+      color: var(--text-tertiary);
       padding: 0.7rem 1.5rem;
-      border-bottom: 2px solid transparent;
+      margin: 4px 0;
+      border-radius: 999px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-bar a:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
     }
     .nav-bar a.active {
-      color: var(--text);
-      border-bottom-color: var(--text);
+      background: var(--bg-hover-darker);
+      color: var(--text-primary);
     }
 
     .masthead {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
+      background: transparent;
     }
     .masthead-inner {
       max-width: 1200px;
@@ -71,28 +126,20 @@
     }
     .masthead .overline {
       font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--text-tertiary);
       margin-bottom: 0.5rem;
     }
     .masthead h1 {
       font-family: var(--serif);
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--text);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      color: var(--text-primary);
     }
     .masthead .subtitle {
       color: var(--text-secondary);
       margin-top: 0.5rem;
-    }
-    .divider-bar {
-      width: 60px;
-      height: 3px;
-      background: var(--accent);
-      margin: 1rem auto 0;
-      border-radius: 2px;
     }
 
     .container {
@@ -111,22 +158,25 @@
     }
 
     .panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+      border: none;
       border-radius: var(--radius);
       padding: 1.5rem;
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-card);
       margin-bottom: 1.5rem;
+    }
+    .panel:hover {
+      box-shadow: var(--shadow-card-hover);
     }
 
     .panel-title {
       font-family: var(--serif);
-      font-size: 1.1rem;
-      font-weight: 700;
+      font-size: 1.35rem;
+      font-weight: 500;
       margin-bottom: 1.25rem;
       padding-bottom: 0.75rem;
-      border-bottom: 2px solid var(--border);
-      color: var(--accent);
+      border-bottom: 1px solid var(--line-subtle);
+      color: var(--text-secondary);
     }
 
     .input-group {
@@ -135,11 +185,10 @@
 
     .input-label {
       display: block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--text-tertiary);
       margin-bottom: 0.35rem;
     }
 
@@ -154,22 +203,22 @@
       padding: 0.5rem 0.6rem;
       font-size: 0.9rem;
       font-family: var(--sans);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--bg);
-      color: var(--text);
+      border: 1px solid var(--line-default);
+      border-radius: 12px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
     }
     input:focus {
       outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(30,58,95,0.1);
+      border-color: var(--bg-accent);
+      box-shadow: 0 0 0 3px rgba(42,143,135,0.1);
     }
 
     input[type="range"] {
       width: 100%;
       height: 6px;
       border-radius: 3px;
-      background: var(--border);
+      background: var(--line-default);
       appearance: none;
       cursor: pointer;
     }
@@ -178,30 +227,185 @@
       width: 16px;
       height: 16px;
       border-radius: 50%;
-      background: var(--accent);
+      background: var(--bg-accent);
       cursor: pointer;
     }
 
     .slider-value {
       min-width: 50px;
       text-align: right;
-      font-weight: 700;
+      font-weight: 600;
       font-size: 0.85rem;
     }
 
     .section-divider {
       border: none;
-      border-top: 1px dashed var(--border);
+      border-top: 1px dashed var(--line-subtle);
       margin: 1.25rem 0;
     }
 
     .section-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--text-secondary);
       margin-bottom: 0.75rem;
+    }
+
+    .allocation-total {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      background: var(--bg-tertiary);
+      font-size: 0.85rem;
+    }
+    .allocation-total.valid {
+      background: #dcfce7;
+    }
+    .allocation-total.invalid {
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+    }
+    .allocation-label {
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .allocation-value {
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .allocation-total.valid .allocation-value {
+      color: #166534;
+    }
+    .allocation-total.invalid .allocation-value {
+      color: #b45309;
+    }
+    .allocation-warning {
+      margin-left: auto;
+      font-weight: 600;
+      color: #b45309;
+    }
+
+    /* Reference Section */
+    .reference-section {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    .reference-details {
+      background: var(--bg-white);
+      border-radius: 16px;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+    .reference-summary {
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--bg-tertiary);
+      border: none;
+      list-style: none;
+    }
+    .reference-summary::-webkit-details-marker {
+      display: none;
+    }
+    .reference-summary::before {
+      content: '▶ ';
+      font-size: 0.75rem;
+      margin-right: 0.5rem;
+    }
+    details[open] .reference-summary::before {
+      content: '▼ ';
+    }
+    .reference-content {
+      padding: 1.5rem;
+      display: grid;
+      gap: 1.5rem;
+    }
+    .ref-step {
+      border-bottom: 1px solid var(--line-subtle);
+      padding-bottom: 1.25rem;
+    }
+    .ref-step:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .ref-step h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+    .formula-box {
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .formula-box code {
+      display: block;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+      margin: 0.25rem 0;
+    }
+    .ref-example {
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      font-style: italic;
+    }
+    .waterfall-ref {
+      display: grid;
+      gap: 0.5rem;
+    }
+    .wf-ref-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+    .wf-ref-num {
+      width: 24px;
+      height: 24px;
+      background: var(--text-primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .wf-ref-name {
+      font-weight: 600;
+      min-width: 140px;
+    }
+    .wf-ref-desc {
+      color: var(--text-secondary);
+    }
+    .ref-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    .ref-table td {
+      padding: 0.5rem;
+      border-bottom: 1px solid var(--line-subtle);
+    }
+    .ref-table td:first-child {
+      width: 120px;
+      color: var(--text-primary);
+    }
+    .ref-table td:last-child {
+      color: var(--text-secondary);
     }
 
     /* Output Cards */
@@ -216,29 +420,26 @@
     }
 
     .output-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      background: var(--bg-tertiary);
+      border: none;
+      border-radius: 16px;
       padding: 0.85rem;
       text-align: center;
     }
     .output-card.highlight {
-      background: var(--accent-light);
-      border-color: var(--accent);
+      background: var(--highlight-brand);
     }
     .output-card.gp {
       background: #f3e8ff;
-      border-color: var(--gp-color);
     }
     .output-card.lp {
-      background: #cffafe;
-      border-color: var(--lp-color);
+      background: var(--highlight-brand);
     }
 
     .output-value {
       font-family: var(--serif);
       font-size: 1.5rem;
-      font-weight: 800;
+      font-weight: 500;
       line-height: 1.2;
     }
     .output-value.green { color: var(--green); }
@@ -247,11 +448,10 @@
     .output-value.lp { color: var(--lp-color); }
 
     .output-label {
-      font-size: 0.65rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--text-muted);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--text-tertiary);
       margin-top: 0.25rem;
     }
 
@@ -264,99 +464,163 @@
       display: flex;
       align-items: center;
       padding: 0.75rem;
-      border-radius: 6px;
+      border-radius: 12px;
       margin-bottom: 0.5rem;
       font-size: 0.85rem;
     }
     .waterfall-step.header {
-      background: var(--text);
+      background: var(--text-primary);
       color: #fff;
-      font-weight: 600;
-    }
-    .waterfall-step.lp-row { background: #ecfeff; }
-    .waterfall-step.gp-row { background: #faf5ff; }
-    .waterfall-step.split-row { background: #f0fdf4; }
-
-    .waterfall-label {
-      flex: 1;
       font-weight: 500;
     }
-    .waterfall-desc {
-      flex: 2;
-      color: var(--text-secondary);
-      font-size: 0.8rem;
+    /* Cash Flow Waterfall */
+    .cashflow-section {
+      margin-bottom: 1rem;
     }
-    .waterfall-lp, .waterfall-gp {
-      width: 100px;
-      text-align: right;
-      font-weight: 700;
+    .cashflow-header {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px 8px 0 0;
+      color: white;
     }
-    .waterfall-lp { color: var(--lp-color); }
-    .waterfall-gp { color: var(--gp-color); }
-
-    .waterfall-total {
+    .cashflow-header.sources { background: #3b82f6; }
+    .cashflow-header.uses { background: #6b7280; }
+    .cashflow-header.investments { background: #8b5cf6; }
+    .cashflow-header.returns { background: #10b981; }
+    .cashflow-header.waterfall { background: #f59e0b; }
+    .cashflow-header.totals { background: #111; }
+    
+    .cashflow-row {
       display: flex;
       align-items: center;
-      padding: 0.85rem;
-      background: var(--surface);
-      border: 2px solid var(--border);
-      border-radius: 6px;
-      margin-top: 0.75rem;
-      font-weight: 700;
+      padding: 0.6rem 0.75rem;
+      border-left: 3px solid transparent;
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--line-subtle);
+      font-size: 0.85rem;
+    }
+    .cashflow-row:last-child {
+      border-radius: 0 0 8px 8px;
+    }
+    .cashflow-row.source { border-left-color: #3b82f6; }
+    .cashflow-row.expense { border-left-color: #ef4444; background: #fef2f2; }
+    .cashflow-row.invest { border-left-color: #8b5cf6; }
+    .cashflow-row.return { border-left-color: #10b981; background: #f0fdf4; }
+    .cashflow-row.subtotal { 
+      background: var(--bg-tertiary); 
+      font-weight: 600;
+      border-left-color: #6b7280;
+    }
+    .cashflow-row.subtotal.highlight-green {
+      background: #dcfce7;
+      border-left-color: #10b981;
+    }
+    .cashflow-row.wf { border-left-color: #f59e0b; }
+    .cashflow-row.wf.lp-style { background: #f0fdfa; }
+    .cashflow-row.wf.gp-style { background: #faf5ff; }
+    .cashflow-row.wf.split-style { background: var(--bg-tertiary); }
+    .cashflow-row.total { font-weight: 600; }
+    .cashflow-row.lp-total { background: #f0fdfa; border-left-color: var(--lp-color); }
+    .cashflow-row.gp-total { background: #faf5ff; border-left-color: var(--gp-color); }
+    .cashflow-row.verify { 
+      background: #f0fdf4; 
+      border-left-color: #10b981;
+      font-size: 0.8rem;
+    }
+    
+    .cf-icon {
+      width: 28px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .cf-label {
+      width: 140px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    .cf-desc {
+      flex: 1;
+      color: var(--text-tertiary);
+      font-size: 0.8rem;
+      padding: 0 0.5rem;
+    }
+    .cf-amount {
+      width: 120px;
+      text-align: right;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+    }
+    .cf-amount.negative { color: #ef4444; }
+    .cf-amount.positive { color: #10b981; }
+    .cf-amount.lp-color { color: var(--lp-color); }
+    .cf-amount.gp-color { color: var(--gp-color); }
+    .cf-amount.split-amounts {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-size: 0.8rem;
+      gap: 2px;
+    }
+    .lp-color { color: var(--lp-color); }
+    .gp-color { color: var(--gp-color); }
+    
+    @media (max-width: 700px) {
+      .cf-desc { display: none; }
+      .cf-label { width: 100px; font-size: 0.8rem; }
+      .cf-amount { width: 90px; }
     }
 
     /* Breakdown Table */
     .breakdown-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
     }
     .breakdown-table th {
       text-align: left;
       padding: 0.5rem 0.4rem;
-      font-size: 0.6rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--text-muted);
-      border-bottom: 2px solid var(--border);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--text-tertiary);
+      border-bottom: 1px solid var(--line-default);
     }
     .breakdown-table td {
       padding: 0.55rem 0.4rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--line-subtle);
     }
     .breakdown-table tr:last-child td { border-bottom: none; }
-    .breakdown-table .engine { font-weight: 600; }
+    .breakdown-table .engine { font-weight: 500; }
     .breakdown-table .num { text-align: right; font-weight: 600; }
     .breakdown-table .pos { color: var(--green); }
 
     .breakdown-table tfoot td {
-      font-weight: 700;
-      border-top: 2px solid var(--border);
-      background: var(--bg);
+      font-weight: 600;
+      border-top: 1px solid var(--line-default);
+      background: var(--bg-tertiary);
     }
 
     /* Scenario Status */
     .scenario-status {
       padding: 0.85rem 1rem;
-      border-radius: var(--radius);
+      border-radius: 16px;
       margin-bottom: 1.25rem;
       font-size: 0.85rem;
     }
     .scenario-status.success {
-      background: #dcfce7;
-      border: 1px solid var(--green);
-      color: #166534;
+      background: var(--highlight-brand);
+      color: var(--green);
     }
     .scenario-status.warning {
-      background: #fef9c3;
-      border: 1px solid var(--yellow);
+      background: var(--highlight-emphasis);
       color: #854d0e;
     }
     .scenario-status.danger {
-      background: #fee2e2;
-      border: 1px solid var(--red);
-      color: #991b1b;
+      background: var(--highlight-warning);
+      color: var(--red);
     }
 
     /* Distribution Bar */
@@ -367,15 +631,15 @@
       display: flex;
       justify-content: space-between;
       font-size: 0.7rem;
-      font-weight: 600;
+      font-weight: 500;
       margin-bottom: 0.4rem;
     }
     .dist-bar {
       height: 28px;
-      border-radius: 6px;
+      border-radius: 999px;
       overflow: hidden;
       display: flex;
-      background: var(--border);
+      background: var(--line-default);
     }
     .dist-bar-lp {
       background: var(--lp-color);
@@ -384,7 +648,7 @@
       justify-content: center;
       color: #fff;
       font-size: 0.7rem;
-      font-weight: 700;
+      font-weight: 600;
     }
     .dist-bar-gp {
       background: var(--gp-color);
@@ -393,14 +657,14 @@
       justify-content: center;
       color: #fff;
       font-size: 0.7rem;
-      font-weight: 700;
+      font-weight: 600;
     }
 
     .footer {
       text-align: center;
       padding: 2rem;
       font-size: 0.75rem;
-      color: var(--text-muted);
+      color: var(--text-tertiary);
     }
 
     /* Saved Versions */
@@ -414,29 +678,29 @@
       flex: 1;
       padding: 0.5rem 0.6rem;
       font-size: 0.85rem;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--bg);
+      border: 1px solid var(--line-default);
+      border-radius: 12px;
+      background: var(--bg-primary);
     }
     .versions-header input:focus {
       outline: none;
-      border-color: var(--accent);
+      border-color: var(--bg-accent);
     }
     .btn {
       padding: 0.5rem 1rem;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 500;
       border: none;
-      border-radius: 6px;
+      border-radius: 999px;
       cursor: pointer;
       transition: all 0.15s;
     }
     .btn-primary {
-      background: var(--accent);
+      background: var(--bg-accent);
       color: #fff;
     }
     .btn-primary:hover {
-      background: #152a45;
+      background: var(--bg-accent-dark);
     }
     .btn-sm {
       padding: 0.35rem 0.6rem;
@@ -444,18 +708,18 @@
     }
     .btn-ghost {
       background: transparent;
-      color: var(--text-muted);
-      border: 1px solid var(--border);
+      color: var(--text-tertiary);
+      border: 1px solid var(--line-default);
     }
     .btn-ghost:hover {
-      background: var(--bg);
-      color: var(--text);
+      background: var(--bg-hover);
+      color: var(--text-primary);
     }
     .btn-danger {
       color: var(--red);
     }
     .btn-danger:hover {
-      background: #fee2e2;
+      background: var(--highlight-warning);
     }
     .version-list {
       max-height: 200px;
@@ -466,13 +730,13 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.6rem;
-      border-radius: 6px;
+      border-radius: 12px;
       margin-bottom: 0.4rem;
-      background: var(--bg);
-      border: 1px solid var(--border);
+      background: var(--bg-tertiary);
+      border: none;
     }
     .version-item:hover {
-      border-color: var(--accent);
+      background: var(--bg-hover);
     }
     .version-name {
       flex: 1;
@@ -482,13 +746,26 @@
     }
     .version-meta {
       font-size: 0.7rem;
-      color: var(--text-muted);
+      color: var(--text-tertiary);
     }
     .version-empty {
       text-align: center;
       padding: 1.5rem;
-      color: var(--text-muted);
+      color: var(--text-tertiary);
       font-size: 0.85rem;
+    }
+
+    /* Insight box */
+    .insight-box {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .insight-box strong {
+      font-weight: 500;
     }
   </style>
 </head>
@@ -496,14 +773,14 @@
 
   <nav class="nav-bar">
     <a href="index.html" class="active">Fund Model</a>
+    <a href="vc-research.html">VC Research</a>
   </nav>
 
   <header class="masthead">
     <div class="masthead-inner">
-      <div class="overline">Portfolio Construction Tool</div>
+      <div class="overline">Portfolio construction tool</div>
       <h1>VC Fund Model Simulator</h1>
       <p class="subtitle">Stress-test portfolio economics with full waterfall analysis</p>
-      <div class="divider-bar"></div>
     </div>
   </header>
 
@@ -513,7 +790,7 @@
       <!-- INPUTS PANEL -->
       <div>
         <div class="panel">
-          <h2 class="panel-title">💾 Saved Versions</h2>
+          <h2 class="panel-title">Saved versions</h2>
           <div class="versions-header">
             <input type="text" id="versionName" placeholder="Version name...">
             <button class="btn btn-primary" onclick="saveVersion()">Save</button>
@@ -524,17 +801,17 @@
         </div>
 
         <div class="panel">
-          <h2 class="panel-title">📊 Fund Parameters</h2>
+          <h2 class="panel-title">Fund parameters</h2>
 
-          <div class="section-label">Fund Basics</div>
+          <div class="section-label">Fund basics</div>
 
           <div class="input-group">
-            <label class="input-label">Fund Size ($M)</label>
+            <label class="input-label">Fund size ($M)</label>
             <input type="number" id="fundSize" value="1000" min="100" max="5000" step="50">
           </div>
 
           <div class="input-group">
-            <label class="input-label">Management Fee (%)</label>
+            <label class="input-label">Management fee (%)</label>
             <div class="input-row">
               <input type="range" id="mgmtFee" value="2" min="1" max="3" step="0.25">
               <span class="slider-value" id="mgmtFeeVal">2%</span>
@@ -543,7 +820,7 @@
           </div>
 
           <div class="input-group">
-            <label class="input-label">Expense Ratio (%)</label>
+            <label class="input-label">Expense ratio (%)</label>
             <div class="input-row">
               <input type="range" id="expenseRatio" value="0.5" min="0" max="2" step="0.1">
               <span class="slider-value" id="expenseRatioVal">0.5%</span>
@@ -552,20 +829,20 @@
           </div>
 
           <div class="input-group">
-            <label class="input-label">Fund Life (Years)</label>
+            <label class="input-label">Fund life (years)</label>
             <input type="number" id="fundLife" value="10" min="5" max="15">
           </div>
 
           <div class="input-group">
-            <label class="input-label">Target Net MOIC</label>
+            <label class="input-label">Target net MOIC</label>
             <input type="number" id="targetMoic" value="5" min="2" max="10" step="0.5">
           </div>
 
           <hr class="section-divider">
-          <div class="section-label">Waterfall Terms</div>
+          <div class="section-label">Waterfall terms</div>
 
           <div class="input-group">
-            <label class="input-label">Carried Interest (%)</label>
+            <label class="input-label">Carried interest (%)</label>
             <div class="input-row">
               <input type="range" id="carryPct" value="20" min="10" max="30" step="1">
               <span class="slider-value" id="carryPctVal">20%</span>
@@ -573,7 +850,7 @@
           </div>
 
           <div class="input-group">
-            <label class="input-label">Preferred Return / Hurdle (%)</label>
+            <label class="input-label">Preferred return / hurdle (%)</label>
             <div class="input-row">
               <input type="range" id="hurdleRate" value="8" min="0" max="12" step="1">
               <span class="slider-value" id="hurdleRateVal">8%</span>
@@ -581,7 +858,7 @@
           </div>
 
           <div class="input-group">
-            <label class="input-label">GP Catch-up (%)</label>
+            <label class="input-label">GP catch-up (%)</label>
             <div class="input-row">
               <input type="range" id="catchupPct" value="100" min="0" max="100" step="10">
               <span class="slider-value" id="catchupPctVal">100%</span>
@@ -589,7 +866,7 @@
           </div>
 
           <hr class="section-divider">
-          <div class="section-label">Capital Allocation</div>
+          <div class="section-label">Capital allocation</div>
 
           <div class="input-group">
             <label class="input-label">Discovery (%)</label>
@@ -615,51 +892,57 @@
             </div>
           </div>
 
+          <div class="allocation-total" id="allocationTotal">
+            <span class="allocation-label">Total allocation:</span>
+            <span class="allocation-value" id="allocationValue">100%</span>
+            <span class="allocation-warning" id="allocationWarning" style="display: none;">⚠️ Missing: <span id="allocationMissing">0%</span></span>
+          </div>
+
         </div>
 
         <div class="panel">
-          <h2 class="panel-title">🎯 Position Assumptions</h2>
+          <h2 class="panel-title">Position assumptions</h2>
 
-          <div class="section-label">Position Counts</div>
+          <div class="section-label">Position counts</div>
 
           <div class="input-group">
-            <label class="input-label">Discovery Positions</label>
+            <label class="input-label">Discovery positions</label>
             <input type="number" id="discoveryCount" value="146" min="20" max="300">
           </div>
 
           <div class="input-group">
-            <label class="input-label">Core Positions</label>
+            <label class="input-label">Core positions</label>
             <input type="number" id="coreCount" value="10" min="5" max="30">
           </div>
 
           <div class="input-group">
-            <label class="input-label">Breakout Positions</label>
+            <label class="input-label">Breakout positions</label>
             <input type="number" id="breakoutCount" value="3" min="1" max="10">
           </div>
 
           <hr class="section-divider">
-          <div class="section-label">Return Multiples (Survivors)</div>
+          <div class="section-label">Return multiples (survivors)</div>
 
           <div class="input-group">
-            <label class="input-label">Discovery Avg Multiple</label>
+            <label class="input-label">Discovery avg multiple</label>
             <input type="number" id="discoveryMult" value="8" min="1" max="50" step="0.5">
           </div>
 
           <div class="input-group">
-            <label class="input-label">Core Avg Multiple</label>
+            <label class="input-label">Core avg multiple</label>
             <input type="number" id="coreMult" value="12" min="2" max="30" step="0.5">
           </div>
 
           <div class="input-group">
-            <label class="input-label">Breakout Avg Multiple</label>
+            <label class="input-label">Breakout avg multiple</label>
             <input type="number" id="breakoutMult" value="25" min="5" max="100" step="1">
           </div>
 
           <hr class="section-divider">
-          <div class="section-label">Loss Rates</div>
+          <div class="section-label">Loss rates</div>
 
           <div class="input-group">
-            <label class="input-label">Discovery Loss Rate</label>
+            <label class="input-label">Discovery loss rate</label>
             <div class="input-row">
               <input type="range" id="discoveryLoss" value="60" min="30" max="80" step="5">
               <span class="slider-value" id="discoveryLossVal">60%</span>
@@ -667,7 +950,7 @@
           </div>
 
           <div class="input-group">
-            <label class="input-label">Core Loss Rate</label>
+            <label class="input-label">Core loss rate</label>
             <div class="input-row">
               <input type="range" id="coreLoss" value="30" min="10" max="50" step="5">
               <span class="slider-value" id="coreLossVal">30%</span>
@@ -675,7 +958,7 @@
           </div>
 
           <div class="input-group">
-            <label class="input-label">Breakout Loss Rate</label>
+            <label class="input-label">Breakout loss rate</label>
             <div class="input-row">
               <input type="range" id="breakoutLoss" value="10" min="0" max="30" step="5">
               <span class="slider-value" id="breakoutLossVal">10%</span>
@@ -689,10 +972,10 @@
       <div>
 
         <div class="panel">
-          <h2 class="panel-title">💰 Fund Economics</h2>
+          <h2 class="panel-title">Fund economics</h2>
 
           <div id="scenarioStatus" class="scenario-status success">
-            <strong>✓ Target Achievable</strong> — Model produces 5.2x net MOIC
+            <strong>Target achievable</strong> — Model produces 5.2x net MOIC
           </div>
 
           <div class="output-grid">
@@ -710,22 +993,41 @@
             </div>
             <div class="output-card">
               <div class="output-value" id="investable">$830M</div>
-              <div class="output-label">Investable Capital</div>
+              <div class="output-label">Investable capital</div>
             </div>
           </div>
 
           <div class="output-grid">
             <div class="output-card">
+              <div class="output-value" id="deployedCapital">$830M</div>
+              <div class="output-label">Deployed capital <span id="deployedPct" style="font-size: 0.75rem; color: var(--text-tertiary);">(100%)</span></div>
+            </div>
+            <div class="output-card">
               <div class="output-value" id="grossProceeds">$6.1B</div>
-              <div class="output-label">Gross Proceeds</div>
+              <div class="output-label">Gross proceeds</div>
             </div>
             <div class="output-card lp">
               <div class="output-value lp" id="lpTotal">$4.2B</div>
-              <div class="output-label">LP Total</div>
+              <div class="output-label">LP total</div>
             </div>
             <div class="output-card gp">
               <div class="output-value gp" id="gpTotal">$1.0B</div>
-              <div class="output-label">GP Total</div>
+              <div class="output-label">GP total</div>
+            </div>
+          </div>
+
+          <div class="output-grid">
+            <div class="output-card highlight">
+              <div class="output-value green" id="tvpi">5.6x</div>
+              <div class="output-label">TVPI</div>
+            </div>
+            <div class="output-card highlight">
+              <div class="output-value green" id="dpi">5.6x</div>
+              <div class="output-label">DPI</div>
+            </div>
+            <div class="output-card">
+              <div class="output-value" id="rvpi">0.0x</div>
+              <div class="output-label">RVPI</div>
             </div>
             <div class="output-card">
               <div class="output-value" id="lpMoic">4.2x</div>
@@ -747,55 +1049,171 @@
         </div>
 
         <div class="panel">
-          <h2 class="panel-title">🌊 Fund Waterfall</h2>
+          <h2 class="panel-title">Complete Cash Flow</h2>
 
-          <div class="waterfall">
-            <div class="waterfall-step header">
-              <div class="waterfall-label">Step</div>
-              <div class="waterfall-desc">Description</div>
-              <div class="waterfall-lp" style="color:#fff;">LP</div>
-              <div class="waterfall-gp" style="color:#fff;">GP</div>
+          <div class="cashflow-section">
+            <div class="cashflow-header sources">💰 SOURCES OF CASH</div>
+            
+            <div class="cashflow-row source">
+              <div class="cf-icon">📥</div>
+              <div class="cf-label">LP Commitment</div>
+              <div class="cf-desc">Capital committed by limited partners</div>
+              <div class="cf-amount" id="cfLpCommitment">$1,000M</div>
             </div>
+          </div>
 
-            <div class="waterfall-step lp-row">
-              <div class="waterfall-label">1. Return of Capital</div>
-              <div class="waterfall-desc">LPs get contributed capital back first</div>
-              <div class="waterfall-lp" id="wfReturnCapitalLP">$1,000M</div>
-              <div class="waterfall-gp">$0</div>
+          <div class="cashflow-section">
+            <div class="cashflow-header uses">📤 USES OF CASH (Fund Operations)</div>
+            
+            <div class="cashflow-row expense">
+              <div class="cf-icon">🏢</div>
+              <div class="cf-label">Management Fees</div>
+              <div class="cf-desc" id="cfMgmtFeeDesc">2% × 10 years = 20% of fund</div>
+              <div class="cf-amount negative" id="cfMgmtFee">-$200M</div>
             </div>
-
-            <div class="waterfall-step lp-row">
-              <div class="waterfall-label">2. Preferred Return</div>
-              <div class="waterfall-desc" id="wfPrefDesc">8% annual hurdle on committed capital</div>
-              <div class="waterfall-lp" id="wfPrefReturnLP">$800M</div>
-              <div class="waterfall-gp">$0</div>
+            
+            <div class="cashflow-row expense">
+              <div class="cf-icon">📋</div>
+              <div class="cf-label">Fund Expenses</div>
+              <div class="cf-desc" id="cfExpenseDesc">Legal, admin, audit, etc.</div>
+              <div class="cf-amount negative" id="cfExpenses">-$50M</div>
             </div>
-
-            <div class="waterfall-step gp-row">
-              <div class="waterfall-label">3. GP Catch-up</div>
-              <div class="waterfall-desc" id="wfCatchupDesc">GP catches up to 20% of profits so far</div>
-              <div class="waterfall-lp">$0</div>
-              <div class="waterfall-gp" id="wfCatchupGP">$450M</div>
+            
+            <div class="cashflow-row subtotal">
+              <div class="cf-icon">→</div>
+              <div class="cf-label">Investable Capital</div>
+              <div class="cf-desc">Available for investments</div>
+              <div class="cf-amount" id="cfInvestable">$750M</div>
             </div>
+          </div>
 
-            <div class="waterfall-step split-row">
-              <div class="waterfall-label">4. Carried Interest Split</div>
-              <div class="waterfall-desc" id="wfSplitDesc">Remaining profits split 80/20</div>
-              <div class="waterfall-lp" id="wfSplitLP">$2,400M</div>
-              <div class="waterfall-gp" id="wfSplitGP">$600M</div>
+          <div class="cashflow-section">
+            <div class="cashflow-header investments">🎯 INVESTMENTS MADE</div>
+            
+            <div class="cashflow-row invest">
+              <div class="cf-icon">🔍</div>
+              <div class="cf-label">Discovery</div>
+              <div class="cf-desc" id="cfDiscoveryDesc">146 positions @ $822K avg</div>
+              <div class="cf-amount" id="cfDiscoveryInvest">$120M</div>
             </div>
+            
+            <div class="cashflow-row invest">
+              <div class="cf-icon">💎</div>
+              <div class="cf-label">Core</div>
+              <div class="cf-desc" id="cfCoreDesc">10 positions @ $54M avg</div>
+              <div class="cf-amount" id="cfCoreInvest">$540M</div>
+            </div>
+            
+            <div class="cashflow-row invest">
+              <div class="cf-icon">🚀</div>
+              <div class="cf-label">Breakout</div>
+              <div class="cf-desc" id="cfBreakoutDesc">7 positions @ $12.9M avg</div>
+              <div class="cf-amount" id="cfBreakoutInvest">$90M</div>
+            </div>
+            
+            <div class="cashflow-row subtotal">
+              <div class="cf-icon">→</div>
+              <div class="cf-label">Total Deployed</div>
+              <div class="cf-desc" id="cfDeployedPct">100% of investable</div>
+              <div class="cf-amount" id="cfTotalDeployed">$750M</div>
+            </div>
+          </div>
 
-            <div class="waterfall-total">
-              <div class="waterfall-label">Total Distributions</div>
-              <div class="waterfall-desc"></div>
-              <div class="waterfall-lp" id="wfTotalLP">$4,200M</div>
-              <div class="waterfall-gp" id="wfTotalGP">$1,050M</div>
+          <div class="cashflow-section">
+            <div class="cashflow-header returns">📈 RETURNS GENERATED</div>
+            
+            <div class="cashflow-row return">
+              <div class="cf-icon">🔍</div>
+              <div class="cf-label">Discovery Returns</div>
+              <div class="cf-desc" id="cfDiscoveryReturnDesc">58 survivors × 3x multiple</div>
+              <div class="cf-amount positive" id="cfDiscoveryReturn">$144M</div>
+            </div>
+            
+            <div class="cashflow-row return">
+              <div class="cf-icon">💎</div>
+              <div class="cf-label">Core Returns</div>
+              <div class="cf-desc" id="cfCoreReturnDesc">7 survivors × 12x multiple</div>
+              <div class="cf-amount positive" id="cfCoreReturn">$4,536M</div>
+            </div>
+            
+            <div class="cashflow-row return">
+              <div class="cf-icon">🚀</div>
+              <div class="cf-label">Breakout Returns</div>
+              <div class="cf-desc" id="cfBreakoutReturnDesc">6.3 survivors × 25x multiple</div>
+              <div class="cf-amount positive" id="cfBreakoutReturn">$2,032M</div>
+            </div>
+            
+            <div class="cashflow-row subtotal highlight-green">
+              <div class="cf-icon">→</div>
+              <div class="cf-label">Gross Proceeds</div>
+              <div class="cf-desc" id="cfGrossMoicDesc">8.9x gross MOIC</div>
+              <div class="cf-amount positive" id="cfGrossProceeds">$6,712M</div>
+            </div>
+          </div>
+
+          <div class="cashflow-section">
+            <div class="cashflow-header waterfall">⬇️ WATERFALL DISTRIBUTION</div>
+            
+            <div class="cashflow-row wf lp-style">
+              <div class="cf-icon">1️⃣</div>
+              <div class="cf-label">Return of Capital</div>
+              <div class="cf-desc">LPs get their money back first</div>
+              <div class="cf-amount lp-color" id="wfReturnCapitalLP">$1,000M</div>
+            </div>
+            
+            <div class="cashflow-row wf lp-style">
+              <div class="cf-icon">2️⃣</div>
+              <div class="cf-label">Preferred Return</div>
+              <div class="cf-desc" id="wfPrefDesc">8% hurdle compounded annually</div>
+              <div class="cf-amount lp-color" id="wfPrefReturnLP">$1,159M</div>
+            </div>
+            
+            <div class="cashflow-row wf gp-style">
+              <div class="cf-icon">3️⃣</div>
+              <div class="cf-label">GP Catch-up</div>
+              <div class="cf-desc" id="wfCatchupDesc">GP catches up to 20% of profits</div>
+              <div class="cf-amount gp-color" id="wfCatchupGP">$290M</div>
+            </div>
+            
+            <div class="cashflow-row wf split-style">
+              <div class="cf-icon">4️⃣</div>
+              <div class="cf-label">Profit Split (80/20)</div>
+              <div class="cf-desc" id="wfSplitDesc">Remaining split per carry terms</div>
+              <div class="cf-amount split-amounts">
+                <span class="lp-color" id="wfSplitLP">$3,410M LP</span>
+                <span class="gp-color" id="wfSplitGP">$853M GP</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cashflow-section">
+            <div class="cashflow-header totals">✅ FINAL DISTRIBUTION</div>
+            
+            <div class="cashflow-row total lp-total">
+              <div class="cf-icon">👥</div>
+              <div class="cf-label">LP Total</div>
+              <div class="cf-desc" id="cfLpMoicDesc">5.6x net MOIC on $1B committed</div>
+              <div class="cf-amount lp-color" id="wfTotalLP">$5,569M</div>
+            </div>
+            
+            <div class="cashflow-row total gp-total">
+              <div class="cf-icon">🎩</div>
+              <div class="cf-label">GP Total</div>
+              <div class="cf-desc" id="cfGpPctDesc">17% of gross proceeds</div>
+              <div class="cf-amount gp-color" id="wfTotalGP">$1,143M</div>
+            </div>
+            
+            <div class="cashflow-row verify">
+              <div class="cf-icon">✓</div>
+              <div class="cf-label">Verification</div>
+              <div class="cf-desc">LP + GP = Gross Proceeds</div>
+              <div class="cf-amount" id="cfVerify">$6,712M ✓</div>
             </div>
           </div>
         </div>
 
         <div class="panel">
-          <h2 class="panel-title">📈 Engine Breakdown</h2>
+          <h2 class="panel-title">Engine breakdown</h2>
 
           <table class="breakdown-table">
             <thead>
@@ -803,9 +1221,9 @@
                 <th>Engine</th>
                 <th>Capital</th>
                 <th>Positions</th>
-                <th>Avg Check</th>
+                <th>Avg check</th>
                 <th>Survivors</th>
-                <th>Gross Return</th>
+                <th>Gross return</th>
               </tr>
             </thead>
             <tbody>
@@ -846,17 +1264,120 @@
             </tfoot>
           </table>
 
-          <div style="margin-top: 1rem; padding: 0.75rem; background: var(--bg); border-radius: 6px; font-size: 0.8rem; color: var(--text-secondary);">
-            <strong>Key Insight:</strong> <span id="keyInsight">Core positions drive 82% of returns.</span>
+          <div class="insight-box">
+            <strong>Key insight:</strong> <span id="keyInsight">Core positions drive 82% of returns.</span>
           </div>
         </div>
 
       </div>
     </div>
+
+    <!-- Reference Section -->
+    <div class="reference-section">
+      <details class="reference-details">
+        <summary class="reference-summary">📊 How the Math Works — Reference Guide</summary>
+        
+        <div class="reference-content">
+          <div class="ref-step">
+            <h4>Step 1: Investable Capital</h4>
+            <div class="formula-box">
+              <code>Investable = Fund Size - (Mgmt Fee × Years) - (Expenses × Years)</code>
+            </div>
+            <p class="ref-example">Example: $1B - ($1B × 2% × 10) - ($1B × 0.5% × 10) = $750M</p>
+          </div>
+
+          <div class="ref-step">
+            <h4>Step 2: Capital Deployment</h4>
+            <div class="formula-box">
+              <code>Layer Capital = Investable × Allocation %</code>
+              <code>Check Size = Layer Capital / Position Count</code>
+            </div>
+            <p class="ref-example">Core: $750M × 72% = $540M → 10 positions × $54M each</p>
+          </div>
+
+          <div class="ref-step">
+            <h4>Step 3: Returns Calculation</h4>
+            <div class="formula-box">
+              <code>Survivors = Positions × (1 - Loss Rate)</code>
+              <code>Layer Return = Survivors × Check Size × Multiple</code>
+              <code>Gross Proceeds = Σ (All Layer Returns)</code>
+            </div>
+            <p class="ref-example">Core: 10 × (1-30%) × $54M × 12x = $4,536M</p>
+          </div>
+
+          <div class="ref-step">
+            <h4>Step 4: Gross MOIC</h4>
+            <div class="formula-box">
+              <code>Gross MOIC = Gross Proceeds / Deployed Capital</code>
+            </div>
+            <p class="ref-example">$6.7B / $750M = 8.9x gross</p>
+          </div>
+
+          <div class="ref-step">
+            <h4>Step 5: Waterfall Distribution</h4>
+            <div class="waterfall-ref">
+              <div class="wf-ref-row">
+                <span class="wf-ref-num">1</span>
+                <span class="wf-ref-name">Return of Capital</span>
+                <span class="wf-ref-desc">LP gets 100% of committed capital first</span>
+              </div>
+              <div class="wf-ref-row">
+                <span class="wf-ref-num">2</span>
+                <span class="wf-ref-name">Preferred Return</span>
+                <span class="wf-ref-desc">LP gets hurdle (e.g., 8% compounded annually)</span>
+              </div>
+              <div class="wf-ref-row">
+                <span class="wf-ref-num">3</span>
+                <span class="wf-ref-name">GP Catch-up</span>
+                <span class="wf-ref-desc">GP catches up to carry % of profits so far</span>
+              </div>
+              <div class="wf-ref-row">
+                <span class="wf-ref-num">4</span>
+                <span class="wf-ref-name">Profit Split</span>
+                <span class="wf-ref-desc">Remaining split 80/20 (or per carry terms)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ref-step">
+            <h4>Step 6: Net Returns</h4>
+            <div class="formula-box">
+              <code>Net MOIC = LP Total / Fund Size</code>
+              <code>Net IRR = (Net MOIC)^(1/years) - 1</code>
+            </div>
+            <p class="ref-example">$5.6B / $1B = 5.6x net → 18.8% IRR over 10 years</p>
+          </div>
+
+          <div class="ref-step">
+            <h4>Fund Performance Ratios</h4>
+            <table class="ref-table">
+              <tr><td><strong>TVPI</strong></td><td>Total Value to Paid-In = (Distributions + NAV) / Called Capital</td></tr>
+              <tr><td><strong>DPI</strong></td><td>Distributions to Paid-In = Realized Distributions / Called Capital</td></tr>
+              <tr><td><strong>RVPI</strong></td><td>Residual Value to Paid-In = Unrealized NAV / Called Capital</td></tr>
+              <tr><td><strong>Note</strong></td><td>TVPI = DPI + RVPI. For a fully realized fund, DPI = TVPI and RVPI = 0</td></tr>
+            </table>
+          </div>
+
+          <div class="ref-step">
+            <h4>Key Relationships</h4>
+            <table class="ref-table">
+              <tr><td><strong>↑ Fund Size</strong></td><td>→ ↑ Investable → ↑ Check sizes (same positions)</td></tr>
+              <tr><td><strong>↑ Mgmt Fee</strong></td><td>→ ↓ Investable → ↓ Gross proceeds → ↓ Net MOIC</td></tr>
+              <tr><td><strong>↑ Allocation %</strong></td><td>→ ↑ Layer capital → ↑ That layer's returns</td></tr>
+              <tr><td><strong>↑ Multiple</strong></td><td>→ ↑ Gross proceeds → ↑ Both GP and LP</td></tr>
+              <tr><td><strong>↑ Loss Rate</strong></td><td>→ ↓ Survivors → ↓ Returns</td></tr>
+              <tr><td><strong>↑ Hurdle</strong></td><td>→ ↑ LP pref return → ↓ GP catch-up needed</td></tr>
+              <tr><td><strong>↑ Carry %</strong></td><td>→ ↑ GP share → ↓ LP net MOIC</td></tr>
+            </table>
+          </div>
+        </div>
+      </details>
+    </div>
+
   </main>
 
   <footer class="footer">
-    <p>VC Fund Model Simulator · Full Waterfall Analysis</p>
+    <p>VC Fund Model Simulator · Full waterfall analysis</p>
   </footer>
 
   <script>
@@ -907,8 +1428,6 @@
     }
 
     function calculateIRR(investable, grossProceeds, years) {
-      // Simplified IRR: solve for r where investable * (1+r)^years = grossProceeds
-      // r = (grossProceeds/investable)^(1/years) - 1
       if (grossProceeds <= 0 || investable <= 0) return 0;
       const moic = grossProceeds / investable;
       const irr = Math.pow(moic, 1/years) - 1;
@@ -916,7 +1435,6 @@
     }
 
     function calculate() {
-      // Get values
       const fundSize = parseFloat(inputs.fundSize.value) * 1e6;
       const mgmtFee = parseFloat(inputs.mgmtFee.value) / 100;
       const expenseRatio = parseFloat(inputs.expenseRatio.value) / 100;
@@ -942,11 +1460,9 @@
       const coreLoss = parseFloat(inputs.coreLoss.value) / 100;
       const breakoutLoss = parseFloat(inputs.breakoutLoss.value) / 100;
 
-      // Calculate fee dollar amounts
       const mgmtFeeDollars = fundSize * mgmtFee * fundLife;
       const expenseRatioDollars = fundSize * expenseRatio * fundLife;
       
-      // Update slider displays
       sliderDisplays.mgmtFee.textContent = (mgmtFee * 100).toFixed(2) + '%';
       sliderDisplays.mgmtFeeDollar.textContent = formatMoney(mgmtFeeDollars);
       sliderDisplays.expenseRatio.textContent = (expenseRatio * 100).toFixed(1) + '%';
@@ -957,93 +1473,115 @@
       sliderDisplays.discoveryPct.textContent = (discoveryPct * 100).toFixed(0) + '%';
       sliderDisplays.corePct.textContent = (corePct * 100).toFixed(0) + '%';
       sliderDisplays.breakoutPct.textContent = (breakoutPct * 100).toFixed(0) + '%';
+      
+      // Update allocation total
+      const totalAllocation = discoveryPct + corePct + breakoutPct;
+      const totalAllocationPct = (totalAllocation * 100).toFixed(0);
+      const allocationTotalEl = document.getElementById('allocationTotal');
+      const allocationValueEl = document.getElementById('allocationValue');
+      const allocationWarningEl = document.getElementById('allocationWarning');
+      const allocationMissingEl = document.getElementById('allocationMissing');
+      
+      allocationValueEl.textContent = totalAllocationPct + '%';
+      
+      if (Math.abs(totalAllocation - 1) < 0.001) {
+        allocationTotalEl.classList.add('valid');
+        allocationTotalEl.classList.remove('invalid');
+        allocationWarningEl.style.display = 'none';
+      } else {
+        allocationTotalEl.classList.remove('valid');
+        allocationTotalEl.classList.add('invalid');
+        allocationWarningEl.style.display = 'inline';
+        const missing = ((1 - totalAllocation) * 100).toFixed(0);
+        if (totalAllocation < 1) {
+          allocationMissingEl.textContent = missing + '% unallocated';
+        } else {
+          allocationMissingEl.textContent = Math.abs(missing) + '% over-allocated';
+        }
+      }
+
       sliderDisplays.discoveryLoss.textContent = (discoveryLoss * 100).toFixed(0) + '%';
       sliderDisplays.coreLoss.textContent = (coreLoss * 100).toFixed(0) + '%';
       sliderDisplays.breakoutLoss.textContent = (breakoutLoss * 100).toFixed(0) + '%';
 
-      // Calculate fees and investable
       const totalFees = mgmtFeeDollars + expenseRatioDollars;
       const investable = fundSize - totalFees;
 
-      // Allocation
+      const deployedCapital = investable * totalAllocation;
+      
       const discoveryCapital = investable * discoveryPct;
       const coreCapital = investable * corePct;
       const breakoutCapital = investable * breakoutPct;
 
-      // Check sizes
       const discoveryCheck = discoveryCapital / discoveryCount;
       const coreCheck = coreCapital / coreCount;
       const breakoutCheck = breakoutCapital / breakoutCount;
 
-      // Survivors
       const discoverySurvivors = discoveryCount * (1 - discoveryLoss);
       const coreSurvivors = coreCount * (1 - coreLoss);
       const breakoutSurvivors = breakoutCount * (1 - breakoutLoss);
 
-      // Returns
       const discoveryReturn = discoverySurvivors * discoveryCheck * discoveryMult;
       const coreReturn = coreSurvivors * coreCheck * coreMult;
       const breakoutReturn = breakoutSurvivors * breakoutCheck * breakoutMult;
 
       const grossProceeds = discoveryReturn + coreReturn + breakoutReturn;
-      const grossMoic = grossProceeds / investable;
+      const grossMoic = deployedCapital > 0 ? grossProceeds / deployedCapital : 0;
 
-      // ========== WATERFALL CALCULATION ==========
       let remaining = grossProceeds;
       let lpTotal = 0;
       let gpTotal = 0;
 
-      // Step 1: Return of Capital (to LPs)
       const returnOfCapital = Math.min(remaining, fundSize);
       lpTotal += returnOfCapital;
       remaining -= returnOfCapital;
 
-      // Step 2: Preferred Return (to LPs)
-      // Compound preferred return: fundSize * ((1 + hurdle)^years - 1)
       const prefReturn = fundSize * (Math.pow(1 + hurdleRate, fundLife) - 1);
       const actualPrefReturn = Math.min(remaining, prefReturn);
       lpTotal += actualPrefReturn;
       remaining -= actualPrefReturn;
 
-      // Step 3: GP Catch-up
-      // GP gets catchupPct of distributions until GP has carryPct of total profits
-      // Total profits so far = returnOfCapital + prefReturn - fundSize + remaining (before split)
-      // Actually: GP needs to catch up so that GP has carryPct of (prefReturn + catchup + split profits)
-      // Simplified: catchup = (prefReturn * carryPct / (1 - carryPct)) * catchupPct
       let gpCatchup = 0;
       if (catchupPct > 0 && remaining > 0) {
-        // GP catch-up: GP gets 100% until they have carryPct of profits distributed so far
-        // catchup amount = (prefReturn * carryPct) / (1 - carryPct)
         const fullCatchup = (actualPrefReturn * carryPct) / (1 - carryPct);
         gpCatchup = Math.min(remaining, fullCatchup * catchupPct);
         gpTotal += gpCatchup;
         remaining -= gpCatchup;
       }
 
-      // Step 4: Carried Interest Split (remaining profits)
       const lpSplit = remaining * (1 - carryPct);
       const gpSplit = remaining * carryPct;
       lpTotal += lpSplit;
       gpTotal += gpSplit;
 
-      // Final metrics
       const lpMoic = lpTotal / fundSize;
-      const netMoic = lpMoic; // Net MOIC = LP MOIC since LPs put in fundSize
+      const netMoic = lpMoic;
       const netIrr = calculateIRR(fundSize, lpTotal, fundLife);
 
-      // ========== UPDATE UI ==========
-      
-      // Main outputs
       document.getElementById('netMoic').textContent = netMoic.toFixed(1) + 'x';
       document.getElementById('grossMoic').textContent = grossMoic.toFixed(1) + 'x';
       document.getElementById('netIrr').textContent = (netIrr * 100).toFixed(1) + '%';
       document.getElementById('investable').textContent = formatMoney(investable);
+      document.getElementById('deployedCapital').textContent = formatMoney(deployedCapital);
+      document.getElementById('deployedPct').textContent = '(' + (totalAllocation * 100).toFixed(0) + '%)';
       document.getElementById('grossProceeds').textContent = formatMoney(grossProceeds);
       document.getElementById('lpTotal').textContent = formatMoney(lpTotal);
       document.getElementById('gpTotal').textContent = formatMoney(gpTotal);
       document.getElementById('lpMoic').textContent = lpMoic.toFixed(1) + 'x';
 
-      // Distribution bar
+      // TVPI, DPI, RVPI calculations
+      // For a fully realized fund model (all exits complete):
+      // - TVPI = (Distributions + NAV) / Paid-In Capital = LP Total / Fund Size
+      // - DPI = Distributions / Paid-In Capital = LP Total / Fund Size (fully realized)
+      // - RVPI = NAV / Paid-In Capital = 0 (no remaining unrealized value)
+      const tvpi = lpTotal / fundSize;
+      const dpi = lpTotal / fundSize;  // Fully realized, so DPI = TVPI
+      const rvpi = 0;  // No unrealized value in this model
+      
+      document.getElementById('tvpi').textContent = tvpi.toFixed(1) + 'x';
+      document.getElementById('dpi').textContent = dpi.toFixed(1) + 'x';
+      document.getElementById('rvpi').textContent = rvpi.toFixed(1) + 'x';
+
       const lpPctVal = (lpTotal / grossProceeds * 100).toFixed(0);
       const gpPctVal = (gpTotal / grossProceeds * 100).toFixed(0);
       document.getElementById('lpPct').textContent = lpPctVal + '%';
@@ -1053,19 +1591,53 @@
       document.getElementById('gpBar').style.width = gpPctVal + '%';
       document.getElementById('gpBar').textContent = formatMoney(gpTotal);
 
-      // Waterfall steps
+      // Cash Flow Section - Sources
+      document.getElementById('cfLpCommitment').textContent = formatMoney(fundSize);
+      
+      // Cash Flow Section - Uses
+      document.getElementById('cfMgmtFee').textContent = '-' + formatMoney(mgmtFeeDollars);
+      document.getElementById('cfMgmtFeeDesc').textContent = `${(mgmtFee*100).toFixed(1)}% × ${fundLife} years`;
+      document.getElementById('cfExpenses').textContent = '-' + formatMoney(expenseRatioDollars);
+      document.getElementById('cfExpenseDesc').textContent = `${(expenseRatio*100).toFixed(1)}% × ${fundLife} years`;
+      document.getElementById('cfInvestable').textContent = formatMoney(investable);
+      
+      // Cash Flow Section - Investments
+      document.getElementById('cfDiscoveryInvest').textContent = formatMoney(discoveryCapital);
+      document.getElementById('cfDiscoveryDesc').textContent = `${discoveryCount} positions @ ${formatMoney(discoveryCheck)} avg`;
+      document.getElementById('cfCoreInvest').textContent = formatMoney(coreCapital);
+      document.getElementById('cfCoreDesc').textContent = `${coreCount} positions @ ${formatMoney(coreCheck)} avg`;
+      document.getElementById('cfBreakoutInvest').textContent = formatMoney(breakoutCapital);
+      document.getElementById('cfBreakoutDesc').textContent = `${breakoutCount} positions @ ${formatMoney(breakoutCheck)} avg`;
+      document.getElementById('cfTotalDeployed').textContent = formatMoney(deployedCapital);
+      document.getElementById('cfDeployedPct').textContent = `${(totalAllocation * 100).toFixed(0)}% of investable`;
+      
+      // Cash Flow Section - Returns
+      document.getElementById('cfDiscoveryReturn').textContent = formatMoney(discoveryReturn);
+      document.getElementById('cfDiscoveryReturnDesc').textContent = `${Math.round(discoverySurvivors)} survivors × ${discoveryMult}x`;
+      document.getElementById('cfCoreReturn').textContent = formatMoney(coreReturn);
+      document.getElementById('cfCoreReturnDesc').textContent = `${coreSurvivors.toFixed(1)} survivors × ${coreMult}x`;
+      document.getElementById('cfBreakoutReturn').textContent = formatMoney(breakoutReturn);
+      document.getElementById('cfBreakoutReturnDesc').textContent = `${breakoutSurvivors.toFixed(1)} survivors × ${breakoutMult}x`;
+      document.getElementById('cfGrossProceeds').textContent = formatMoney(grossProceeds);
+      document.getElementById('cfGrossMoicDesc').textContent = `${grossMoic.toFixed(1)}x gross MOIC`;
+      
+      // Cash Flow Section - Waterfall
       document.getElementById('wfReturnCapitalLP').textContent = formatMoney(returnOfCapital);
-      document.getElementById('wfPrefDesc').textContent = `${(hurdleRate*100).toFixed(0)}% annual hurdle compounded over ${fundLife} years`;
+      document.getElementById('wfPrefDesc').textContent = `${(hurdleRate*100).toFixed(0)}% hurdle compounded over ${fundLife} years`;
       document.getElementById('wfPrefReturnLP').textContent = formatMoney(actualPrefReturn);
-      document.getElementById('wfCatchupDesc').textContent = `GP catches up to ${(carryPct*100).toFixed(0)}% of profits (${(catchupPct*100).toFixed(0)}% catch-up)`;
+      document.getElementById('wfCatchupDesc').textContent = `GP catches up to ${(carryPct*100).toFixed(0)}% of profits`;
       document.getElementById('wfCatchupGP').textContent = formatMoney(gpCatchup);
-      document.getElementById('wfSplitDesc').textContent = `Remaining profits split ${((1-carryPct)*100).toFixed(0)}/${(carryPct*100).toFixed(0)}`;
-      document.getElementById('wfSplitLP').textContent = formatMoney(lpSplit);
-      document.getElementById('wfSplitGP').textContent = formatMoney(gpSplit);
+      document.getElementById('wfSplitDesc').textContent = `Remaining split ${((1-carryPct)*100).toFixed(0)}/${(carryPct*100).toFixed(0)}`;
+      document.getElementById('wfSplitLP').textContent = formatMoney(lpSplit) + ' LP';
+      document.getElementById('wfSplitGP').textContent = formatMoney(gpSplit) + ' GP';
       document.getElementById('wfTotalLP').textContent = formatMoney(lpTotal);
       document.getElementById('wfTotalGP').textContent = formatMoney(gpTotal);
+      
+      // Cash Flow Section - Final
+      document.getElementById('cfLpMoicDesc').textContent = `${netMoic.toFixed(1)}x net MOIC on ${formatMoney(fundSize)} committed`;
+      document.getElementById('cfGpPctDesc').textContent = `${gpPctVal}% of gross proceeds`;
+      document.getElementById('cfVerify').textContent = formatMoney(lpTotal + gpTotal) + ' ✓';
 
-      // Breakdown table
       document.getElementById('discoveryCapital').textContent = formatMoney(discoveryCapital);
       document.getElementById('discoveryPositions').textContent = discoveryCount;
       document.getElementById('discoveryCheck').textContent = formatMoney(discoveryCheck);
@@ -1084,50 +1656,45 @@
       document.getElementById('breakoutSurvivors').textContent = breakoutSurvivors.toFixed(1);
       document.getElementById('breakoutReturn').textContent = formatMoney(breakoutReturn);
 
-      document.getElementById('totalCapital').innerHTML = '<strong>' + formatMoney(investable) + '</strong>';
+      document.getElementById('totalCapital').innerHTML = '<strong>' + formatMoney(deployedCapital) + '</strong>';
       document.getElementById('totalPositions').innerHTML = '<strong>' + (discoveryCount + coreCount + breakoutCount) + '</strong>';
       document.getElementById('totalSurvivors').innerHTML = '<strong>' + Math.round(discoverySurvivors + coreSurvivors + breakoutSurvivors) + '</strong>';
       document.getElementById('totalReturn').innerHTML = '<strong>' + formatMoney(grossProceeds) + '</strong>';
 
-      // Scenario status
       const statusEl = document.getElementById('scenarioStatus');
       const netMoicEl = document.getElementById('netMoic');
       const netIrrEl = document.getElementById('netIrr');
       
       if (netMoic >= targetMoic) {
         statusEl.className = 'scenario-status success';
-        statusEl.innerHTML = `<strong>✓ Target Achievable</strong> — ${netMoic.toFixed(1)}x net MOIC / ${(netIrr*100).toFixed(1)}% net IRR (target: ${targetMoic}x)`;
+        statusEl.innerHTML = `<strong>Target achievable</strong> — ${netMoic.toFixed(1)}x net MOIC / ${(netIrr*100).toFixed(1)}% net IRR (target: ${targetMoic}x)`;
         netMoicEl.className = 'output-value green';
         netIrrEl.className = 'output-value green';
       } else if (netMoic >= targetMoic * 0.8) {
         statusEl.className = 'scenario-status warning';
-        statusEl.innerHTML = `<strong>⚠ Close to Target</strong> — ${netMoic.toFixed(1)}x net MOIC / ${(netIrr*100).toFixed(1)}% net IRR (target: ${targetMoic}x)`;
+        statusEl.innerHTML = `<strong>Close to target</strong> — ${netMoic.toFixed(1)}x net MOIC / ${(netIrr*100).toFixed(1)}% net IRR (target: ${targetMoic}x)`;
         netMoicEl.className = 'output-value';
         netMoicEl.style.color = 'var(--yellow)';
         netIrrEl.className = 'output-value';
         netIrrEl.style.color = 'var(--yellow)';
       } else {
         statusEl.className = 'scenario-status danger';
-        statusEl.innerHTML = `<strong>✗ Below Target</strong> — ${netMoic.toFixed(1)}x net MOIC / ${(netIrr*100).toFixed(1)}% net IRR (target: ${targetMoic}x)`;
+        statusEl.innerHTML = `<strong>Below target</strong> — ${netMoic.toFixed(1)}x net MOIC / ${(netIrr*100).toFixed(1)}% net IRR (target: ${targetMoic}x)`;
         netMoicEl.className = 'output-value red';
         netIrrEl.className = 'output-value red';
       }
 
-      // Key insight
       const coreContribution = coreReturn / grossProceeds * 100;
       document.getElementById('keyInsight').textContent = 
         `Core positions drive ${coreContribution.toFixed(0)}% of gross returns. GP takes home ${formatMoney(gpTotal)} (${gpPctVal}% of proceeds).`;
     }
 
-    // Add event listeners
     Object.values(inputs).forEach(input => {
       input.addEventListener('input', calculate);
     });
 
-    // Initial calculation
     calculate();
 
-    // ========== VERSION MANAGEMENT ==========
     const STORAGE_KEY = 'fundModelVersions';
 
     function getVersions() {
@@ -1222,7 +1789,6 @@
       `).join('');
     }
 
-    // Initialize versions list
     renderVersions();
   </script>
 
