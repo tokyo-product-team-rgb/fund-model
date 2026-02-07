@@ -417,6 +417,18 @@
     }
     @media (max-width: 700px) {
       .output-grid { grid-template-columns: repeat(2, 1fr); }
+      .output-value { font-size: 1.25rem; }
+      .output-label { font-size: 0.65rem; }
+    }
+    @media (max-width: 400px) {
+      .container { padding: 1rem; }
+      .panel { padding: 1rem; }
+      .panel-title { font-size: 1.15rem; }
+      .input-row { flex-wrap: wrap; }
+      .slider-value { min-width: 40px; font-size: 0.8rem; }
+      .output-grid { gap: 0.5rem; }
+      .output-card { padding: 0.6rem; }
+      .output-value { font-size: 1.1rem; }
     }
 
     .output-card {
@@ -572,12 +584,25 @@
       .cf-label { width: 100px; font-size: 0.8rem; }
       .cf-amount { width: 90px; }
     }
+    @media (max-width: 400px) {
+      .cashflow-row { padding: 0.5rem; }
+      .cf-icon { width: 24px; font-size: 0.85rem; }
+      .cf-label { width: 80px; font-size: 0.75rem; }
+      .cf-amount { width: 70px; font-size: 0.8rem; }
+      .dist-bar { height: 24px; }
+      .dist-bar-lp, .dist-bar-gp { font-size: 0.6rem; }
+    }
 
     /* Breakdown Table */
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     .breakdown-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.85rem;
+      min-width: 500px;
     }
     .breakdown-table th {
       text-align: left;
@@ -1215,6 +1240,7 @@
         <div class="panel">
           <h2 class="panel-title">Engine breakdown</h2>
 
+          <div class="table-wrapper">
           <table class="breakdown-table">
             <thead>
               <tr>
@@ -1263,6 +1289,7 @@
               </tr>
             </tfoot>
           </table>
+          </div>
 
           <div class="insight-box">
             <strong>Key insight:</strong> <span id="keyInsight">Core positions drive 82% of returns.</span>
