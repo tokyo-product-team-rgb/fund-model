@@ -1613,11 +1613,11 @@
       
       // Cash Flow Section - Returns
       document.getElementById('cfDiscoveryReturn').textContent = formatMoney(discoveryReturn);
-      document.getElementById('cfDiscoveryReturnDesc').textContent = `${Math.round(discoverySurvivors)} survivors × ${discoveryMult}x`;
+      document.getElementById('cfDiscoveryReturnDesc').textContent = `${formatMoney(discoveryCheck)} × ${Math.round(discoverySurvivors)} survivors × ${discoveryMult}x`;
       document.getElementById('cfCoreReturn').textContent = formatMoney(coreReturn);
-      document.getElementById('cfCoreReturnDesc').textContent = `${coreSurvivors.toFixed(1)} survivors × ${coreMult}x`;
+      document.getElementById('cfCoreReturnDesc').textContent = `${formatMoney(coreCheck)} × ${coreSurvivors.toFixed(1)} survivors × ${coreMult}x`;
       document.getElementById('cfBreakoutReturn').textContent = formatMoney(breakoutReturn);
-      document.getElementById('cfBreakoutReturnDesc').textContent = `${breakoutSurvivors.toFixed(1)} survivors × ${breakoutMult}x`;
+      document.getElementById('cfBreakoutReturnDesc').textContent = `${formatMoney(breakoutCheck)} × ${breakoutSurvivors.toFixed(1)} survivors × ${breakoutMult}x`;
       document.getElementById('cfGrossProceeds').textContent = formatMoney(grossProceeds);
       document.getElementById('cfGrossMoicDesc').textContent = `${grossMoic.toFixed(1)}x gross MOIC`;
       
