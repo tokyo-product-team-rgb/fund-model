@@ -259,23 +259,25 @@
         background: #f3e8ff !important;
       }
       
-      /* Cashflow sections become invisible */
+      /* Cashflow sections */
       .cashflow-section {
-        background: transparent !important;
-        border-radius: 0 !important;
+        margin-bottom: 1rem;
       }
       .cashflow-header {
-        border-radius: 8px !important;
-        margin-bottom: 0 !important;
+        font-size: 0.65rem;
+        padding: 0.4rem 0;
       }
       .cashflow-row {
-        background: transparent !important;
-        border-left: none !important;
-        border-bottom: 1px solid var(--line-subtle) !important;
-        border-radius: 0 !important;
+        padding: 0.5rem 0;
       }
-      .cashflow-row:last-child {
-        border-radius: 0 !important;
+      .cf-label {
+        width: 100px;
+        font-size: 0.8rem;
+      }
+      .cf-amount {
+        width: auto;
+        flex: 1;
+        text-align: right;
       }
       
       .panel-title {
@@ -695,78 +697,54 @@
       color: #fff;
       font-weight: 500;
     }
-    /* Cash Flow Waterfall */
+    /* Cash Flow Table */
     .cashflow-section {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
     .cashflow-header {
       font-size: 0.7rem;
       font-weight: 600;
-      letter-spacing: 0.05em;
-      padding: 0.5rem 0.75rem;
-      border-radius: 8px 8px 0 0;
-      color: white;
+      letter-spacing: 0.02em;
+      padding: 0.5rem 0;
+      color: var(--text-secondary);
+      border-bottom: 2px solid var(--line-default);
+      text-transform: uppercase;
     }
-    .cashflow-header.sources { background: #3b82f6; }
-    .cashflow-header.uses { background: #6b7280; }
-    .cashflow-header.investments { background: #8b5cf6; }
-    .cashflow-header.returns { background: #10b981; }
-    .cashflow-header.waterfall { background: #f59e0b; }
-    .cashflow-header.totals { background: #111; }
     
     .cashflow-row {
       display: flex;
       align-items: center;
-      padding: 0.6rem 0.75rem;
-      border-left: 3px solid transparent;
-      background: var(--bg-white);
+      padding: 0.6rem 0;
       border-bottom: 1px solid var(--line-subtle);
       font-size: 0.85rem;
     }
     .cashflow-row:last-child {
-      border-radius: 0 0 8px 8px;
+      border-bottom: none;
     }
-    .cashflow-row.source { border-left-color: #3b82f6; }
-    .cashflow-row.expense { border-left-color: #ef4444; background: #fef2f2; }
-    .cashflow-row.invest { border-left-color: #8b5cf6; }
-    .cashflow-row.return { border-left-color: #10b981; background: #f0fdf4; }
     .cashflow-row.subtotal { 
-      background: var(--bg-tertiary); 
       font-weight: 600;
-      border-left-color: #6b7280;
+      background: var(--bg-tertiary);
+      padding: 0.6rem 0.5rem;
+      margin: 0.25rem 0;
+      border-radius: 8px;
+      border-bottom: none;
     }
-    .cashflow-row.subtotal.highlight-green {
-      background: #dcfce7;
-      border-left-color: #10b981;
-    }
-    .cashflow-row.wf { border-left-color: #f59e0b; }
-    .cashflow-row.wf.lp-style { background: #f0fdfa; }
-    .cashflow-row.wf.gp-style { background: #faf5ff; }
-    .cashflow-row.wf.split-style { background: var(--bg-tertiary); }
-    .cashflow-row.total { font-weight: 600; }
-    .cashflow-row.lp-total { background: #f0fdfa; border-left-color: var(--lp-color); }
-    .cashflow-row.gp-total { background: #faf5ff; border-left-color: var(--gp-color); }
-    .cashflow-row.verify { 
-      background: #f0fdf4; 
-      border-left-color: #10b981;
-      font-size: 0.8rem;
+    .cashflow-row.total { 
+      font-weight: 600; 
     }
     
     .cf-icon {
-      width: 28px;
-      text-align: center;
-      flex-shrink: 0;
-      color: var(--text-primary);
+      display: none;
     }
     .cf-label {
-      width: 140px;
+      width: 160px;
       font-weight: 500;
       flex-shrink: 0;
       color: var(--text-primary);
     }
     .cf-desc {
       flex: 1;
-      color: var(--text-secondary);
+      color: var(--text-tertiary);
       font-size: 0.8rem;
       padding: 0 0.5rem;
     }
@@ -1296,10 +1274,9 @@
           <h2 class="panel-title">Complete Cash Flow</h2>
 
           <div class="cashflow-section">
-            <div class="cashflow-header sources">💰 SOURCES OF CASH</div>
+            <div class="cashflow-header">Sources of capital</div>
             
-            <div class="cashflow-row source">
-              <div class="cf-icon">📥</div>
+            <div class="cashflow-row">
               <div class="cf-label">LP Commitment</div>
               <div class="cf-desc">Capital committed by limited partners</div>
               <div class="cf-amount" id="cfLpCommitment">$1,000M</div>
@@ -1307,24 +1284,21 @@
           </div>
 
           <div class="cashflow-section">
-            <div class="cashflow-header uses">📤 USES OF CASH (Fund Operations)</div>
+            <div class="cashflow-header">Uses of capital</div>
             
-            <div class="cashflow-row expense">
-              <div class="cf-icon">🏢</div>
+            <div class="cashflow-row">
               <div class="cf-label">Management Fees</div>
               <div class="cf-desc" id="cfMgmtFeeDesc">2% × 10 years = 20% of fund</div>
               <div class="cf-amount negative" id="cfMgmtFee">-$200M</div>
             </div>
             
-            <div class="cashflow-row expense">
-              <div class="cf-icon">📋</div>
+            <div class="cashflow-row">
               <div class="cf-label">Fund Expenses</div>
               <div class="cf-desc" id="cfExpenseDesc">Legal, admin, audit, etc.</div>
               <div class="cf-amount negative" id="cfExpenses">-$50M</div>
             </div>
             
             <div class="cashflow-row subtotal">
-              <div class="cf-icon">→</div>
               <div class="cf-label">Investable Capital</div>
               <div class="cf-desc">Available for investments</div>
               <div class="cf-amount" id="cfInvestable">$750M</div>
@@ -1332,31 +1306,27 @@
           </div>
 
           <div class="cashflow-section">
-            <div class="cashflow-header investments">🎯 INVESTMENTS MADE</div>
+            <div class="cashflow-header">Investments made</div>
             
-            <div class="cashflow-row invest">
-              <div class="cf-icon">🔍</div>
+            <div class="cashflow-row">
               <div class="cf-label">Discovery</div>
               <div class="cf-desc" id="cfDiscoveryDesc">146 positions @ $822K avg</div>
               <div class="cf-amount" id="cfDiscoveryInvest">$120M</div>
             </div>
             
-            <div class="cashflow-row invest">
-              <div class="cf-icon">💎</div>
+            <div class="cashflow-row">
               <div class="cf-label">Core</div>
               <div class="cf-desc" id="cfCoreDesc">10 positions @ $54M avg</div>
               <div class="cf-amount" id="cfCoreInvest">$540M</div>
             </div>
             
-            <div class="cashflow-row invest">
-              <div class="cf-icon">🚀</div>
+            <div class="cashflow-row">
               <div class="cf-label">Breakout</div>
               <div class="cf-desc" id="cfBreakoutDesc">7 positions @ $12.9M avg</div>
               <div class="cf-amount" id="cfBreakoutInvest">$90M</div>
             </div>
             
             <div class="cashflow-row subtotal">
-              <div class="cf-icon">→</div>
               <div class="cf-label">Total Deployed</div>
               <div class="cf-desc" id="cfDeployedPct">100% of investable</div>
               <div class="cf-amount" id="cfTotalDeployed">$750M</div>
@@ -1364,31 +1334,27 @@
           </div>
 
           <div class="cashflow-section">
-            <div class="cashflow-header returns">📈 RETURNS GENERATED</div>
+            <div class="cashflow-header">Returns generated</div>
             
-            <div class="cashflow-row return">
-              <div class="cf-icon">🔍</div>
+            <div class="cashflow-row">
               <div class="cf-label">Discovery Returns</div>
               <div class="cf-desc" id="cfDiscoveryReturnDesc">58 survivors × 3x multiple</div>
               <div class="cf-amount positive" id="cfDiscoveryReturn">$144M</div>
             </div>
             
-            <div class="cashflow-row return">
-              <div class="cf-icon">💎</div>
+            <div class="cashflow-row">
               <div class="cf-label">Core Returns</div>
               <div class="cf-desc" id="cfCoreReturnDesc">7 survivors × 12x multiple</div>
               <div class="cf-amount positive" id="cfCoreReturn">$4,536M</div>
             </div>
             
-            <div class="cashflow-row return">
-              <div class="cf-icon">🚀</div>
+            <div class="cashflow-row">
               <div class="cf-label">Breakout Returns</div>
               <div class="cf-desc" id="cfBreakoutReturnDesc">6.3 survivors × 25x multiple</div>
               <div class="cf-amount positive" id="cfBreakoutReturn">$2,032M</div>
             </div>
             
-            <div class="cashflow-row subtotal highlight-green">
-              <div class="cf-icon">→</div>
+            <div class="cashflow-row subtotal">
               <div class="cf-label">Gross Proceeds</div>
               <div class="cf-desc" id="cfGrossMoicDesc">8.9x gross MOIC</div>
               <div class="cf-amount positive" id="cfGrossProceeds">$6,712M</div>
@@ -1396,59 +1362,52 @@
           </div>
 
           <div class="cashflow-section">
-            <div class="cashflow-header waterfall">⬇️ WATERFALL DISTRIBUTION</div>
+            <div class="cashflow-header">Waterfall distribution</div>
             
-            <div class="cashflow-row wf lp-style">
-              <div class="cf-icon">1️⃣</div>
+            <div class="cashflow-row">
               <div class="cf-label">Return of Capital</div>
               <div class="cf-desc">LPs get their money back first</div>
-              <div class="cf-amount lp-color" id="wfReturnCapitalLP">$1,000M</div>
+              <div class="cf-amount" id="wfReturnCapitalLP">$1,000M</div>
             </div>
             
-            <div class="cashflow-row wf lp-style">
-              <div class="cf-icon">2️⃣</div>
+            <div class="cashflow-row">
               <div class="cf-label">Preferred Return</div>
               <div class="cf-desc" id="wfPrefDesc">8% hurdle compounded annually</div>
-              <div class="cf-amount lp-color" id="wfPrefReturnLP">$1,159M</div>
+              <div class="cf-amount" id="wfPrefReturnLP">$1,159M</div>
             </div>
             
-            <div class="cashflow-row wf gp-style">
-              <div class="cf-icon">3️⃣</div>
+            <div class="cashflow-row">
               <div class="cf-label">GP Catch-up</div>
               <div class="cf-desc" id="wfCatchupDesc">GP catches up to 20% of profits</div>
-              <div class="cf-amount gp-color" id="wfCatchupGP">$290M</div>
+              <div class="cf-amount" id="wfCatchupGP">$290M</div>
             </div>
             
-            <div class="cashflow-row wf split-style">
-              <div class="cf-icon">4️⃣</div>
+            <div class="cashflow-row">
               <div class="cf-label">Profit Split (80/20)</div>
               <div class="cf-desc" id="wfSplitDesc">Remaining split per carry terms</div>
               <div class="cf-amount split-amounts">
-                <span class="lp-color" id="wfSplitLP">$3,410M LP</span>
-                <span class="gp-color" id="wfSplitGP">$853M GP</span>
+                <span id="wfSplitLP">$3,410M LP</span>
+                <span id="wfSplitGP">$853M GP</span>
               </div>
             </div>
           </div>
 
           <div class="cashflow-section">
-            <div class="cashflow-header totals">✅ FINAL DISTRIBUTION</div>
+            <div class="cashflow-header">Final distribution</div>
             
-            <div class="cashflow-row total lp-total">
-              <div class="cf-icon">👥</div>
+            <div class="cashflow-row total">
               <div class="cf-label">LP Total</div>
               <div class="cf-desc" id="cfLpMoicDesc">5.6x net MOIC on $1B committed</div>
-              <div class="cf-amount lp-color" id="wfTotalLP">$5,569M</div>
+              <div class="cf-amount positive" id="wfTotalLP">$5,569M</div>
             </div>
             
-            <div class="cashflow-row total gp-total">
-              <div class="cf-icon">🎩</div>
+            <div class="cashflow-row total">
               <div class="cf-label">GP Total</div>
               <div class="cf-desc" id="cfGpPctDesc">17% of gross proceeds</div>
-              <div class="cf-amount gp-color" id="wfTotalGP">$1,143M</div>
+              <div class="cf-amount" id="wfTotalGP">$1,143M</div>
             </div>
             
-            <div class="cashflow-row verify">
-              <div class="cf-icon">✓</div>
+            <div class="cashflow-row">
               <div class="cf-label">Verification</div>
               <div class="cf-desc">LP + GP = Gross Proceeds</div>
               <div class="cf-amount" id="cfVerify">$6,712M ✓</div>
