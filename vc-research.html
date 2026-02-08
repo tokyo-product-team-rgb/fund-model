@@ -387,28 +387,28 @@
     }
 
     .comparison-card {
-      background: var(--text-primary);
-      color: white;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
       border-radius: var(--radius);
       padding: 1.5rem;
     }
 
     .comparison-card .card-headline {
-      color: white;
+      color: var(--text-primary);
     }
 
     .comparison-card .data-table th {
-      color: rgba(255,255,255,0.6);
-      border-bottom-color: rgba(255,255,255,0.2);
+      color: var(--text-secondary);
+      border-bottom-color: var(--line-default);
     }
 
     .comparison-card .data-table td {
-      color: rgba(255,255,255,0.9);
-      border-bottom-color: rgba(255,255,255,0.1);
+      color: var(--text-primary);
+      border-bottom-color: var(--line-subtle);
     }
 
     .comparison-card .firm-name {
-      color: white;
+      color: var(--text-primary);
     }
 
     .highlight-stat {
@@ -566,24 +566,9 @@
         transform: none;
       }
       
-      /* Comparison card: change to light mode on mobile */
+      /* Comparison card: invisible on mobile like other cards */
       .comparison-card {
         background: transparent !important;
-        color: var(--text-primary) !important;
-      }
-      .comparison-card .card-headline {
-        color: var(--text-primary) !important;
-      }
-      .comparison-card .data-table th {
-        color: var(--text-secondary) !important;
-        border-bottom-color: var(--line-default) !important;
-      }
-      .comparison-card .data-table td {
-        color: var(--text-primary) !important;
-        border-bottom-color: var(--line-subtle) !important;
-      }
-      .comparison-card .firm-name {
-        color: var(--text-primary) !important;
       }
       
       .cards-2col {
