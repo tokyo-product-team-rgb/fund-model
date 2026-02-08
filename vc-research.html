@@ -501,11 +501,6 @@
       html, body {
         overflow-x: hidden;
         width: 100%;
-        max-width: 100vw;
-      }
-      
-      * {
-        max-width: 100vw;
       }
       
       .section {
@@ -526,7 +521,19 @@
       .nav-bar {
         width: 100%;
         max-width: 100vw;
+        padding: 0 16px;
         overflow-x: auto;
+      }
+      
+      .cards,
+      .cards-2col {
+        width: calc(100vw - 32px);
+        max-width: calc(100vw - 32px);
+      }
+      
+      .card {
+        width: calc(100vw - 32px);
+        max-width: calc(100vw - 32px);
       }
       
       .masthead h1 {
