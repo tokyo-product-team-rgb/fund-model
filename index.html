@@ -158,13 +158,123 @@
         grid-template-columns: 1fr;
       }
     }
-    @media (max-width: 600px) {
-      .container {
-        padding: 1rem 1rem;
+    
+    /* Mobile Design System */
+    @media (max-width: 640px) {
+      html, body {
+        overflow-x: hidden;
       }
+      
+      .container {
+        width: calc(100vw - 32px);
+        max-width: calc(100vw - 32px);
+        padding: 1rem 0 2rem;
+        margin: 0 auto;
+      }
+      
+      .masthead-inner {
+        width: calc(100vw - 32px);
+        max-width: calc(100vw - 32px);
+        padding: 1.5rem 0;
+        margin: 0 auto;
+      }
+      
+      .masthead h1 {
+        font-size: 1.75rem;
+      }
+      
+      .masthead .subtitle {
+        font-size: 0.9rem;
+      }
+      
+      /* Panels become invisible on mobile */
       .panel {
-        margin-left: 0;
-        margin-right: 0;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0 0 1.5rem 0;
+        margin-bottom: 1.5rem;
+        border: none;
+        border-bottom: 1px solid var(--line-subtle);
+      }
+      .panel:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+      .panel:hover {
+        box-shadow: none;
+      }
+      
+      .panel-title {
+        font-size: 1.15rem;
+        padding-bottom: 0.5rem;
+      }
+      
+      /* Output grids */
+      .output-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+      }
+      .output-card {
+        padding: 0.6rem;
+        border-radius: 12px;
+      }
+      .output-value {
+        font-size: 1.1rem;
+      }
+      .output-label {
+        font-size: 0.6rem;
+      }
+      
+      /* Cash flow section */
+      .cashflow-row {
+        padding: 0.5rem 0;
+      }
+      .cf-icon {
+        width: 24px;
+        font-size: 0.85rem;
+      }
+      .cf-label {
+        width: 90px;
+        font-size: 0.75rem;
+      }
+      .cf-desc {
+        display: none;
+      }
+      .cf-amount {
+        width: auto;
+        flex: 1;
+        text-align: right;
+        font-size: 0.8rem;
+      }
+      
+      /* Distribution bar */
+      .dist-bar {
+        height: 24px;
+      }
+      .dist-bar-lp, .dist-bar-gp {
+        font-size: 0.6rem;
+      }
+      
+      /* Reference section */
+      .reference-section {
+        padding: 0;
+        margin: 1rem 0;
+      }
+      .reference-details {
+        border-radius: 12px;
+      }
+      .reference-summary {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+      }
+      .reference-content {
+        padding: 1rem;
+      }
+      
+      /* Footer */
+      .footer {
+        padding: 1.5rem 0;
       }
     }
 
@@ -426,21 +536,7 @@
       gap: 0.75rem;
       margin-bottom: 1.25rem;
     }
-    @media (max-width: 700px) {
-      .output-grid { grid-template-columns: repeat(2, 1fr); }
-      .output-value { font-size: 1.25rem; }
-      .output-label { font-size: 0.65rem; }
-    }
-    @media (max-width: 400px) {
-      .container { padding: 1rem; }
-      .panel { padding: 1rem; }
-      .panel-title { font-size: 1.15rem; }
-      .input-row { flex-wrap: wrap; }
-      .slider-value { min-width: 40px; font-size: 0.8rem; }
-      .output-grid { gap: 0.5rem; }
-      .output-card { padding: 0.6rem; }
-      .output-value { font-size: 1.1rem; }
-    }
+    /* Tablet breakpoint - handled by 640px mobile system */
 
     .output-card {
       background: var(--bg-tertiary);
@@ -590,30 +686,36 @@
     .lp-color { color: var(--lp-color); }
     .gp-color { color: var(--gp-color); }
     
-    @media (max-width: 700px) {
-      .cf-desc { display: none; }
-      .cf-label { width: 100px; font-size: 0.8rem; }
-      .cf-amount { width: 90px; }
-    }
-    @media (max-width: 400px) {
-      .cashflow-row { padding: 0.5rem; }
-      .cf-icon { width: 24px; font-size: 0.85rem; }
-      .cf-label { width: 80px; font-size: 0.75rem; }
-      .cf-amount { width: 70px; font-size: 0.8rem; }
-      .dist-bar { height: 24px; }
-      .dist-bar-lp, .dist-bar-gp { font-size: 0.6rem; }
-    }
+    /* Mobile cash flow styles handled by 640px mobile system */
 
     /* Breakdown Table */
     .table-wrapper {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
+      max-width: 100%;
     }
     .breakdown-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.85rem;
       min-width: 500px;
+    }
+    @media (max-width: 640px) {
+      .table-wrapper {
+        max-width: calc(100vw - 32px);
+        margin: 0;
+      }
+      .breakdown-table {
+        font-size: 0.75rem;
+      }
+      .breakdown-table th,
+      .breakdown-table td {
+        padding: 0.4rem 0.3rem;
+        white-space: nowrap;
+      }
+      .breakdown-table th {
+        font-size: 0.6rem;
+      }
     }
     .breakdown-table th {
       text-align: left;
